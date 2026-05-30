@@ -10,7 +10,7 @@ import {
   useCurrencyPreference,
 } from "../utilities/formatterUtility";
 
-const WHATSAPP_NUMBER = "2348140041861";
+const WHATSAPP_NUMBER = "2348160550326";
 
 const PaymentStatus: React.FC = () => {
   const navigate = useNavigate();
@@ -160,7 +160,10 @@ const PaymentStatus: React.FC = () => {
               <div className="flex items-center justify-between gap-3">
                 <span className="text-neutral-soft">Amount</span>
                 <span className="font-bold text-tetiary">
-                  {formatPayAmountFromNaira(order.unitPrice * order.qty, currency)}
+                  {formatPayAmountFromNaira(
+                    order.unitPrice * order.qty,
+                    currency,
+                  )}
                 </span>
               </div>
 

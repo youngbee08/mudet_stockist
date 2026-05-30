@@ -10,175 +10,104 @@ import FaqCard from "../components/common/FaqCard";
 const About: React.FC = () => {
   const values: BenefitCardProps[] = [
     {
-      name: "Purity",
+      name: "Authentic Mudet Products",
       icon: <PiFlowerTulip />,
       detail:
-        "Made with carefully selected red botanicals and superfruits, free from unnecessary additives.",
+        "We supply genuine Mudet Herbal Extract solutions with trusted sourcing and safe handling.",
     },
     {
-      name: "Quality",
+      name: "Stockist Support",
       icon: <MdCleanHands />,
       detail:
-        "Formulated with high-grade ingredients and produced under strict quality standards for consistent results.",
+        "Super Lady provides easy guidance for orders, registration, and product delivery.",
     },
     {
-      name: "Consistency",
+      name: "Daily Wellness Focus",
       icon: <GiRopeCoil />,
       detail:
-        "Designed for daily use to support long-term wellness through regular, mindful intake.",
+        "Mudet products are designed for everyday use to support vitality, balance, and recovery.",
     },
   ];
 
   const faqs = [
     {
-      question: "Is this product safe to use?",
+      question: "Are the Mudet products original?",
       answer:
-        "Yes. Our products are made with carefully sourced ingredients and follow recommended safety standards.",
+        "Yes. Super Lady stocks genuine Mudet Real Solution products for customers in Nigeria.",
     },
     {
-      question: "Do I need experience to become an affiliate?",
+      question: "Can I become a distributor?",
       answer:
-        "No experience is required. You’ll receive guidance and support to help you get started.",
+        "Absolutely. Use the Register page to select a package and submit your registration details.",
     },
     {
-      question: "How soon can I see results?",
+      question: "What products are available?",
       answer:
-        "Results vary depending on consistency and individual response, but many users notice changes over time.",
+        "We currently offer Cinnamon Herbal Extract and ARMOR Herbal Extract, both at ₦14,000 each.",
     },
     {
-      question: "How do I get started?",
+      question: "How soon will I receive my order?",
       answer:
-        "Simply reach out to us or follow the sign-up process. We’ll guide you step by step.",
+        "Delivery depends on your location, but we prioritize fast handling once your order is confirmed.",
     },
   ];
+
   return (
-    <div className="flex flex-col gap-10 lg:gap-14">
-      <section className="flex lg:flex-row flex-col-reverse gap-6 lg:gap-12 items-start">
-        <div className="w-full lg:w-1/2 h-full bg-neutral-soft/30 backdrop-blur-2xl rounded-2xl">
+    <div className="flex flex-col gap-14">
+      <section className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] items-center">
+        <div className="space-y-5">
+          <h1 className="text-4xl font-bold text-neutral-dark">About Super Lady</h1>
+          <p className="max-w-2xl text-sm text-neutral-soft sm:text-base">
+            Super Lady is your Mudet Real Solution stockist, providing a reliable way to buy Mudet products and register as a distributor. Our goal is to make ordering, registration, and support simple for every customer.
+          </p>
+          <p className="max-w-2xl text-sm text-neutral-soft sm:text-base">
+            We focus on authenticity, clear communication, and the right package for every stockist. If you want to start selling Mudet, we guide you from registration through your first order.
+          </p>
+        </div>
+        <div className="rounded-[2rem] border border-secondary-dark/70 bg-secondary p-6 shadow-lg shadow-black/5">
           <img
             src={assets.about}
-            alt="about-image"
-            className="w-full h-full object-cover rounded-2xl"
+            alt="About Mudet"
+            className="h-full w-full rounded-[1.5rem] object-cover"
           />
         </div>
-        <div className="flex flex-col gap-2 lg:gap-5 w-full lg:w-1/2">
-          <h1 className="text-neutral-dark text-2xl lg:text-5xl font-semibold">
-            Crafted for Daily Wellness{" "}
-          </h1>
+      </section>
 
-          <div className="w-full">
-            <div className="flex flex-col gap-3">
-              <p className="text-neutral-soft font-medium text-xs lg:text-sm">
-                The human body functions as a connected system built from cells,
-                tissues, organs, and body systems, with healthy cells forming
-                the foundation of overall wellbeing. Each day, these cells are
-                exposed to metabolic and environmental stress that can affect
-                balance over time.
-              </p>
+      <section className="grid gap-6 lg:grid-cols-3">
+        {values.map((value) => (
+          <BenefitCard
+            key={value.name}
+            name={value.name}
+            icon={value.icon}
+            detail={value.detail}
+          />
+        ))}
+      </section>
 
-              <p className="text-neutral-soft font-medium text-xs lg:text-sm">
-                Antioxidants help protect cells by neutralizing free radicals
-                and reducing oxidative stress. A key antioxidant produced by the
-                body is{" "}
-                <span className="font-semibold text-primary">glutathione</span>,
-                which supports immune balance, detox processes, and cellular
-                stability.{" "}
-                <span className="font-semibold text-primary">
-                  N-Acetyl Cysteine (NAC)
-                </span>{" "}
-                supports glutathione production by supplying cysteine, helping
-                maintain strong antioxidant defenses.
-              </p>
-
-              <p className="text-neutral-soft font-medium text-xs lg:text-sm">
-                Double Red Rose is formulated to support antioxidant activity at
-                the cellular level, helping protect cells from oxidative stress,
-                support glutathione-related functions, and promote healthier
-                tissues, organs, and overall wellness.
-              </p>
-            </div>
-          </div>
+      <section className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] items-start">
+        <div className="space-y-4">
+          <h2 className="text-3xl font-bold text-neutral-dark">Our Mudet Product Line</h2>
+          <p className="text-sm text-neutral-soft sm:text-base">
+            We stock two Mudet Herbal Extracts that are popular with customers and new distributors alike. Each product is priced at ₦14,000.
+          </p>
+        </div>
+        <div className="rounded-[2rem] border border-secondary-dark/70 bg-white p-6 shadow-lg shadow-black/5">
+          <img
+            src={assets.showcase}
+            alt="Mudet product showcase"
+            className="w-full rounded-[1.5rem] object-cover"
+          />
         </div>
       </section>
-      <section className="flex flex-col gap-6 lg:gap-12">
-        <div className="w-full flex items-center gap-2">
-          <div className="w-1 h-6 bg-primary rounded-t-xl rounded-b-xl"></div>
-          <h2 className="text-xl lg:text-2xl text-neutral-dark font-semibold">
-            The Product
-          </h2>
+
+      <section className="rounded-[2rem] border border-secondary-dark/70 bg-white p-8 shadow-lg shadow-black/5">
+        <div className="flex items-center gap-3">
+          <div className="h-10 w-1 rounded-full bg-primary" />
+          <h2 className="text-2xl font-bold text-neutral-dark">Frequently Asked Questions</h2>
         </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-          <div className="relative w-full flex justify-center">
-            <div className="absolute inset-0 bg-primary/10 blur-3xl opacity-40 rounded-full" />
-
-            <div className="relative w-full lg:max-w-md rounded-2xl border border-secondary-dark/70 bg-white shadow-xl shadow-black/10">
-              <img
-                src={assets.showcase}
-                alt="Double Red Rose Product"
-                className="w-full object-contain rounded-2xl"
-              />
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-4">
-            <h3 className="text-2xl lg:text-3xl font-semibold text-neutral-dark">
-              Double Red Rose
-            </h3>
-
-            <p className="text-xs lg:text-sm text-neutral-soft leading-relaxed">
-              A carefully formulated blend of powerful red botanicals and
-              antioxidant-rich extracts designed to support cellular protection,
-              immune balance, and overall vitality.
-            </p>
-
-            <ul className="flex flex-col gap-2 text-xs lg:text-sm text-neutral-soft">
-              <li>• Supports antioxidant defense</li>
-              <li>• Promotes cellular protection</li>
-              <li>• Supports glutathione activity</li>
-              <li>• Designed for consistent daily wellness</li>
-            </ul>
-
-            <div>
-              <span className="inline-flex items-center rounded-full bg-primary px-5 py-2 text-sm font-semibold text-white shadow-md">
-                Daily Wellness Formula
-              </span>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section className="flex flex-col gap-6 lg:gap-12">
-        <div className="w-full flex items-center gap-2">
-          <div className="w-1 h-6 bg-primary rounded-t-xl rounded-b-xl"></div>
-          <h2 className="text-xl lg:text-2xl  text-neutral-dark font-semibold">
-            Core Values
-          </h2>
-        </div>
-        <div className="flex lg:items-center gap-5 lg:flex-row flex-col">
-          {values.map((value, index) => (
-            <BenefitCard
-              name={value.name}
-              icon={value.icon}
-              detail={value.detail}
-              key={index}
-            />
-          ))}
-        </div>
-      </section>
-      <section className="flex flex-col gap-6 lg:gap-12">
-        <div className="w-full flex items-center gap-2">
-          <div className="w-1 h-6 bg-primary rounded-t-xl rounded-b-xl"></div>
-          <h2 className="text-xl lg:text-2xl  text-neutral-dark font-semibold">
-            FAQs
-          </h2>
-        </div>
-        <div className="w-full mx-auto flex flex-col gap-3">
+        <div className="mt-6 grid gap-4">
           {faqs.map((faq) => (
-            <FaqCard
-              key={faq.question}
-              question={faq.question}
-              answer={faq.answer}
-            />
+            <FaqCard key={faq.question} question={faq.question} answer={faq.answer} />
           ))}
         </div>
       </section>

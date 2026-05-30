@@ -10,8 +10,8 @@ const navitems: navitemsProps[] = [
     path: "/about",
   },
   {
-    name: "Become an Affiliate",
-    path: "/become-an-affiliate",
+    name: "Register",
+    path: "/register",
   },
   {
     name: "Contact",

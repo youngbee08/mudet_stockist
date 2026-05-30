@@ -40,10 +40,10 @@ const Header = () => {
 
             <Link to="/" className="flex flex-col leading-tight">
               <span className="font-display text-lg font-bold text-tetiary">
-                RedRose by Gladys
+                Super Lady
               </span>
               <span className="text-[14px] text-neutral-soft">
-                Affiliate business owner of Affluence Global
+                Mudet Real Solution stockist
               </span>
             </Link>
           </div>
@@ -78,10 +78,10 @@ const Header = () => {
           <div className="hidden md:flex justify-end">
             <motion.div whileHover={{ y: -1 }} whileTap={{ scale: 0.98 }}>
               <Link
-                to="tel:+234814 004 1861"
+                to="tel:+2348160550326"
                 className=" items-center justify-center h-10 rounded-xl bg-primary text-white px-4 text-sm font-semibold hover:brightness-110 transition lg:inline-flex hidden"
               >
-                Schedule a Call
+                Contact Super Lady
               </Link>
             </motion.div>
           </div>
@@ -116,10 +116,10 @@ const Header = () => {
               <div className="flex items-center justify-between px-4 py-4 border-b border-secondary-dark/60">
                 <div className="flex flex-col leading-tight">
                   <span className="font-display font-bold text-tetiary">
-                    RedRose by Gladys
+                    Super Lady
                   </span>
                   <span className="text-[11px] text-neutral-soft">
-                    Affiliate business owner of Affluence Global
+                    Mudet Real Solution stockist
                   </span>
                 </div>
 
@@ -164,12 +164,12 @@ const Header = () => {
                 </Link>
 
                 <a
-                  href="https://wa.me/2348140041861?text=Hi%20there,%20I'd%20like%20to%20learn%20more."
+                  href="https://wa.me/2348160550326?text=Hi%20there,%20I'd%20like%20to%20learn%20more%20about%20Mudet%20products."
                   target="_blank"
                   rel="noopener noreferrer"
                   className="block mt-3 w-full text-center rounded-xl bg-black/5 hover:bg-black/10 px-4 py-3 text-xs font-semibold text-tetiary transition"
                 >
-                  Message Us
+                  Message Super Lady
                 </a>
               </div>
             </motion.aside>

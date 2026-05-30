@@ -3,7 +3,7 @@ import { FaWhatsapp } from "react-icons/fa";
 import { HiOutlineMail, HiOutlinePhone } from "react-icons/hi";
 import { toast } from "sonner";
 
-const WHATSAPP_NUMBER = "2348140041861";
+const WHATSAPP_NUMBER = "2348160550326";
 
 const Contact: React.FC = () => {
   const [form, setForm] = useState({
@@ -156,7 +156,7 @@ const Contact: React.FC = () => {
 
             <div className="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-4">
               <a
-                href="tel:+2348140041861"
+                href="tel:+2348160550326"
                 className="rounded-2xl border border-secondary-dark/70 bg-white p-4 shadow-md shadow-black/5 hover:-translate-y-0.5 transition"
               >
                 <div className="h-10 w-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
@@ -167,7 +167,7 @@ const Contact: React.FC = () => {
               </a>
 
               <a
-                href="mailto:affluenceglobal01@gmail.com"
+                href="mailto:mudetrealsolution@gmail.com"
                 className="rounded-2xl border border-secondary-dark/70 bg-white p-4 shadow-md shadow-black/5 hover:-translate-y-0.5 transition"
               >
                 <div className="h-10 w-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center">

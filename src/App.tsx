@@ -33,7 +33,7 @@ const App: React.FC = () => {
           }
         />
         <Route
-          path="/become-an-affiliate"
+          path="/register"
           element={
             <MainLayout>
               <Affiliate />
