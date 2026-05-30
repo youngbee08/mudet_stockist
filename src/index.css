@@ -1,0 +1,72 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400..700&family=Inter:wght@400..800&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #e7000b;
+  --color-primary-deep: #b80009;
+  --color-accent: #ff3b30;
+  --color-secondary: #ffffff;
+  --color-tetiary: #0b0e13;
+  --color-neutral-dark: #111827;
+  --color-neutral-soft: #6b7280;
+  --color-secondary-dark: #e5e7eb;
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --text-sm:16px;
+  --text-xs:14px;
+}
+
+.app-container {
+  @apply w-full max-w-280 mx-auto px-4;
+}
+
+* {
+  font-family: var(--font-sans);
+  font-optical-sizing: auto;
+}
+
+h1,
+h2,
+h3,
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.styled-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  background: transparent;
+}
+
+.styled-scrollbar::-webkit-scrollbar-thumb {
+  background-color: color-mix(in oklab, var(--color-primary) 55%, transparent);
+  border-radius: 9999px;
+  transition: background-color 0.2s ease;
+}
+
+.styled-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: color-mix(in oklab, var(--color-primary) 75%, transparent);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in oklab, var(--color-primary) 55%, transparent)
+    transparent;
+}
+
+:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
