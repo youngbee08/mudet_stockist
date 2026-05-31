@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { toast } from "sonner";
 import { FaWhatsapp } from "react-icons/fa";
-import { HiOutlineArrowLeft } from "react-icons/hi";
+import { ArrowLeft, Check, FileUp, RotateCcw } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import type { PendingOrder } from "../lib/interfaces";
 import CurrencyToggle from "../components/ui/CurrencyToggle";
@@ -44,13 +44,13 @@ const PaymentStatus: React.FC = () => {
     if (order.status === "verified") {
       return {
         title: "Payment Verified",
-        hint: "Your payment has been confirmed. We’ll proceed with processing your order.",
+        hint: "Your payment has been confirmed. We will proceed with processing your order.",
       };
     }
 
     return {
       title: "Payment Pending",
-      hint: "Your receipt has been uploaded successfully. We’re currently verifying your payment. This usually takes 5–15 minutes.",
+      hint: "Your order has been saved. Upload or select your receipt, then share it with Super Lady on WhatsApp for verification.",
     };
   }, [order]);
 
@@ -70,7 +70,7 @@ const PaymentStatus: React.FC = () => {
       `Address: ${order.address}\n` +
       `Date: ${dateText}\n\n` +
       `Receipt: ${receiptFile?.name || order.receiptFileName || "Attached"}\n\n` +
-      `Hello, I’m following up on my payment. Please verify my receipt.\n` +
+      `Hello, I am following up on my payment. Please verify my receipt.\n` +
       `Note: I will attach the receipt image/PDF in this chat.`;
 
     return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
@@ -105,136 +105,109 @@ const PaymentStatus: React.FC = () => {
   const dateText = dt.toLocaleString();
 
   return (
-    <section className="w-full">
-      <div className="mx-auto w-full max-w-xl">
-        <div className="rounded-2xl border border-secondary-dark/70 bg-white p-5 sm:p-6 shadow-md shadow-black/5">
-          <div className="flex items-center justify-between">
+    <section className="mx-auto w-full max-w-3xl">
+      <div className="surface-card overflow-hidden">
+        <div className="bg-neutral-dark p-6 text-white sm:p-8">
+          <div className="flex items-center justify-between gap-4">
             <button
               onClick={() => navigate(-1)}
-              className="inline-flex items-center gap-2 text-sm font-bold text-neutral-soft hover:text-tetiary transition"
+              className="inline-flex items-center gap-2 text-sm font-extrabold text-white/70 transition hover:text-white"
             >
-              <HiOutlineArrowLeft className="text-lg" />
+              <ArrowLeft className="h-4 w-4" />
               Back
             </button>
-
-            <span className="text-[11px] font-bold tracking-widest uppercase text-neutral-soft">
-              Status
-            </span>
+            <CurrencyToggle currency={currency} onChange={setCurrency} />
           </div>
-          <div className="mt-5 flex flex-col items-center text-center">
-            <div className="w-full flex justify-end">
-              <CurrencyToggle currency={currency} onChange={setCurrency} />
-            </div>
-            <div className="h-14 w-14 rounded-full bg-primary/10 flex items-center justify-center">
-              <div className="h-10 w-10 rounded-full bg-primary text-white flex items-center justify-center font-extrabold">
-                ✓
+
+          <div className="mt-8 text-center">
+            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-white/10">
+              <div className="flex h-11 w-11 items-center justify-center rounded-full bg-primary text-white">
+                <Check className="h-6 w-6" />
               </div>
             </div>
-
-            <h1 className="mt-4 font-display text-2xl font-extrabold text-tetiary">
+            <p className="mt-5 section-kicker text-accent-soft">Order status</p>
+            <h1 className="mt-2 font-display text-4xl font-bold">
               {statusUI.title}
             </h1>
-
-            <p className="mt-2 text-sm text-neutral-soft max-w-md">
+            <p className="mx-auto mt-3 max-w-lg text-sm leading-7 text-white/70">
               {statusUI.hint}
             </p>
           </div>
-          <div className="mt-6 rounded-2xl border border-secondary-dark/70 bg-secondary/30 p-4">
-            <p className="text-[11px] font-bold tracking-widest uppercase text-neutral-soft">
-              Order Summary
-            </p>
+        </div>
 
-            <div className="mt-4 grid grid-cols-1 gap-3 text-sm">
-              <div className="flex items-center justify-between gap-3">
-                <span className="text-neutral-soft">Order ID</span>
-                <span className="font-bold text-tetiary">{order.orderId}</span>
-              </div>
-
-              <div className="flex items-center justify-between gap-3">
-                <span className="text-neutral-soft">Product</span>
-                <span className="font-bold text-tetiary">
-                  {order.productName}
-                </span>
-              </div>
-
-              <div className="flex items-center justify-between gap-3">
-                <span className="text-neutral-soft">Amount</span>
-                <span className="font-bold text-tetiary">
-                  {formatPayAmountFromNaira(
-                    order.unitPrice * order.qty,
-                    currency,
-                  )}
-                </span>
-              </div>
-
-              <div className="flex items-center justify-between gap-3">
-                <span className="text-neutral-soft">Date</span>
-                <span className="font-bold text-tetiary">{dateText}</span>
-              </div>
+        <div className="p-5 sm:p-8">
+          <div className="rounded-[24px] bg-secondary p-5">
+            <p className="section-kicker">Order summary</p>
+            <div className="mt-5 grid gap-3 text-sm">
+              {[
+                ["Order ID", order.orderId],
+                ["Product", order.productName],
+                [
+                  "Amount",
+                  formatPayAmountFromNaira(order.unitPrice * order.qty, currency),
+                ],
+                ["Date", dateText],
+              ].map(([label, value]) => (
+                <div key={label} className="flex items-center justify-between gap-4 rounded-2xl bg-white px-4 py-3">
+                  <span className="text-neutral-soft">{label}</span>
+                  <span className="text-right font-extrabold text-neutral-dark">
+                    {value}
+                  </span>
+                </div>
+              ))}
             </div>
           </div>
-          <div className="mt-5">
-            <input
-              ref={fileRef}
-              type="file"
-              accept="image/*,application/pdf"
-              className="hidden"
-              onChange={(e) => {
-                const file = e.target.files?.[0] || null;
-                setReceiptFile(file);
-                if (file) {
-                  handleSaveReceiptName(file.name);
-                  toast.success(`Receipt selected: ${file.name}`);
-                }
-              }}
-            />
 
+          <input
+            ref={fileRef}
+            type="file"
+            accept="image/*,application/pdf"
+            className="hidden"
+            onChange={(e) => {
+              const file = e.target.files?.[0] || null;
+              setReceiptFile(file);
+              if (file) {
+                handleSaveReceiptName(file.name);
+                toast.success(`Receipt selected: ${file.name}`);
+              }
+            }}
+          />
+
+          <div className="mt-6 grid gap-3 sm:grid-cols-2">
             <button
               type="button"
               onClick={handlePickReceipt}
-              className="w-full rounded-xl border border-secondary-dark/70 bg-white px-5 py-3 text-sm font-bold text-tetiary hover:bg-secondary/30 transition"
+              className="btn-secondary gap-2"
             >
+              <FileUp className="h-4 w-4" />
               {receiptFile || order.receiptFileName
                 ? "Change Receipt"
                 : "Upload Receipt"}
             </button>
 
-            <p className="mt-2 text-[11px] text-neutral-soft text-center">
-              You’ll select the receipt here, then attach it in WhatsApp.
-            </p>
+            <a
+              href={buildWhatsAppLink()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary gap-2"
+            >
+              <FaWhatsapp className="h-5 w-5" />
+              Share Receipt
+            </a>
           </div>
-          <a
-            href={buildWhatsAppLink()}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-bold text-white shadow-md shadow-black/10 hover:brightness-110 transition"
+
+          <button
+            type="button"
+            onClick={handleResetOrder}
+            className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full border border-secondary-dark/70 bg-white px-5 py-3 text-sm font-extrabold text-neutral-dark transition hover:bg-secondary"
           >
-            <FaWhatsapp className="text-lg" />
-            Share Receipt via WhatsApp
-          </a>
+            <RotateCcw className="h-4 w-4" />
+            Start New Order
+          </button>
 
-          <div className="mt-6">
-            <p className="text-[11px] font-bold tracking-widest uppercase text-neutral-soft text-center">
-              Other options
-            </p>
-
-            <div className="mt-3">
-              <button
-                type="button"
-                onClick={handleResetOrder}
-                className="inline-flex items-center justify-center rounded-xl border border-secondary-dark/70 bg-white px-4 py-3 text-xs font-bold text-tetiary hover:bg-secondary/30 transition w-full"
-              >
-                Start New Order
-              </button>
-            </div>
-          </div>
-
-          <div className="mt-6 text-center">
-            <p className="mt-1 text-[11px] text-neutral-soft">
-              Transaction Ref:{" "}
-              <span className="font-semibold">{order.orderId}-CONF</span>
-            </p>
-          </div>
+          <p className="mt-6 text-center text-xs font-bold text-neutral-faint">
+            Transaction Ref: {order.orderId}-CONF
+          </p>
         </div>
       </div>
     </section>

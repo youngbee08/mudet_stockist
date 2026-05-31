@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { HiOutlineMenuAlt3, HiX } from "react-icons/hi";
 import { AnimatePresence, motion } from "framer-motion";
+import { Phone } from "lucide-react";
 import navitems from "../../lib/navitems";
+import assets from "../../assets/assets";
 
 const Header = () => {
   const location = useLocation();
@@ -22,33 +24,27 @@ const Header = () => {
   return (
     <header className="sticky top-0 z-50">
       <motion.div
-        className="bg-white border-b border-secondary-dark/60"
+        className="border-b border-primary/10 bg-[#f8fbf6]/90 backdrop-blur-xl"
         initial={{ y: -12, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.25, ease: "easeOut" }}
       >
-        <nav className="app-container h-16 flex items-center gap-3">
-          <div className="flex items-center gap-3">
-            <motion.button
-              onClick={() => setOpen(true)}
-              className="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-xl hover:bg-black/5 transition"
-              aria-label="Open menu"
-              whileTap={{ scale: 0.95 }}
-            >
-              <HiOutlineMenuAlt3 className="text-2xl text-primary" />
-            </motion.button>
-
-            <Link to="/" className="flex flex-col leading-tight">
-              <span className="font-display text-lg font-bold text-tetiary">
+        <nav className="app-container flex h-20 items-center gap-4">
+          <Link to="/" className="flex min-w-0 items-center gap-3">
+            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-primary/15 bg-white shadow-sm">
+              <img src={assets.logo1} alt="Mudet" className="h-8 w-8 object-contain" />
+            </span>
+            <span className="flex min-w-0 flex-col leading-tight">
+              <span className="truncate font-display text-xl font-bold text-tetiary">
                 Super Lady
               </span>
-              <span className="text-[14px] text-neutral-soft">
-                Mudet Real Solution stockist
+              <span className="truncate text-[12px] font-bold uppercase tracking-[0.16em] text-accent">
+                Mudet Stockist
               </span>
-            </Link>
-          </div>
+            </span>
+          </Link>
 
-          <div className="hidden md:flex flex-1 items-center justify-center gap-8">
+          <div className="hidden flex-1 items-center justify-center gap-2 md:flex">
             {navitems.map((item) => {
               const active = location.pathname === item.path;
               return (
@@ -56,37 +52,49 @@ const Header = () => {
                   key={item.name}
                   to={item.path}
                   className={[
-                    "text-sm font-semibold transition relative",
+                    "relative rounded-full px-4 py-2 text-sm font-extrabold transition",
                     active
                       ? "text-primary"
-                      : "text-neutral-dark hover:text-primary",
+                      : "text-neutral-soft hover:bg-white hover:text-primary",
                   ].join(" ")}
                 >
-                  {item.name}
                   {active && (
                     <motion.span
-                      layoutId="activeNav"
-                      className="absolute -bottom-2 left-0 right-0 mx-auto h-0.5 w-6 rounded-full bg-primary"
+                      layoutId="activeNavPill"
+                      className="absolute inset-0 rounded-full bg-primary/10"
                       transition={{ duration: 0.25, ease: "easeOut" }}
                     />
                   )}
+                  <span className="relative">{item.name}</span>
                 </Link>
               );
             })}
           </div>
 
-          <div className="hidden md:flex justify-end">
-            <motion.div whileHover={{ y: -1 }} whileTap={{ scale: 0.98 }}>
-              <Link
-                to="tel:+2348160550326"
-                className=" items-center justify-center h-10 rounded-xl bg-primary text-white px-4 text-sm font-semibold hover:brightness-110 transition lg:inline-flex hidden"
-              >
-                Contact Super Lady
-              </Link>
-            </motion.div>
+          <div className="ml-auto hidden items-center gap-3 md:flex">
+            <Link
+              to="/purchase-product"
+              className="btn-secondary min-h-11 px-5 py-2.5"
+            >
+              Buy Products
+            </Link>
+            <a
+              href="tel:+2348160550326"
+              className="btn-primary min-h-11 gap-2 px-5 py-2.5"
+            >
+              <Phone className="h-4 w-4" />
+              Call
+            </a>
           </div>
 
-          <div className="md:hidden ml-auto w-10" aria-hidden="true" />
+          <motion.button
+            onClick={() => setOpen(true)}
+            className="ml-auto inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-primary/15 bg-white text-primary shadow-sm transition hover:bg-secondary md:hidden"
+            aria-label="Open menu"
+            whileTap={{ scale: 0.95 }}
+          >
+            <HiOutlineMenuAlt3 className="text-2xl" />
+          </motion.button>
         </nav>
       </motion.div>
 
@@ -100,52 +108,51 @@ const Header = () => {
           >
             <motion.div
               onClick={() => setOpen(false)}
-              className="absolute inset-0 bg-black/50"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
+              className="absolute inset-0 bg-neutral-dark/45"
             />
 
             <motion.aside
-              className="absolute left-0 top-0 h-full w-[85%] max-w-sm bg-white shadow-2xl"
-              initial={{ x: "-100%" }}
+              className="absolute right-0 top-0 flex h-full w-[88%] max-w-sm flex-col bg-[#f8fbf6] shadow-2xl"
+              initial={{ x: "100%" }}
               animate={{ x: 0 }}
-              exit={{ x: "-100%" }}
+              exit={{ x: "100%" }}
               transition={{ duration: 0.28, ease: "easeOut" }}
             >
-              <div className="flex items-center justify-between px-4 py-4 border-b border-secondary-dark/60">
-                <div className="flex flex-col leading-tight">
-                  <span className="font-display font-bold text-tetiary">
-                    Super Lady
-                  </span>
-                  <span className="text-[11px] text-neutral-soft">
-                    Mudet Real Solution stockist
-                  </span>
+              <div className="flex items-center justify-between border-b border-primary/10 px-5 py-5">
+                <div className="flex items-center gap-3">
+                  <img src={assets.logo1} alt="Mudet" className="h-10 w-10 object-contain" />
+                  <div className="leading-tight">
+                    <p className="font-display text-lg font-bold text-tetiary">
+                      Super Lady
+                    </p>
+                    <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-accent">
+                      Mudet Stockist
+                    </p>
+                  </div>
                 </div>
 
                 <motion.button
                   onClick={() => setOpen(false)}
-                  className="w-10 h-10 rounded-xl hover:bg-black/5 transition flex items-center justify-center"
+                  className="flex h-10 w-10 items-center justify-center rounded-2xl bg-white text-tetiary shadow-sm"
                   aria-label="Close menu"
                   whileTap={{ scale: 0.95 }}
                 >
-                  <HiX className="text-2xl text-tetiary" />
+                  <HiX className="text-2xl" />
                 </motion.button>
               </div>
 
-              <div className="px-4 py-6 flex flex-col gap-2">
+              <div className="flex flex-col gap-2 px-5 py-6">
                 {navitems.map((item) => {
                   const active = location.pathname === item.path;
                   return (
                     <Link
                       key={item.name}
                       to={item.path}
-                      onClick={() => setOpen(false)}
                       className={[
-                        "px-4 py-3 rounded-xl text-sm font-semibold transition",
+                        "rounded-2xl px-4 py-4 text-sm font-extrabold transition",
                         active
-                          ? "bg-black/5 text-tetiary"
-                          : "text-neutral-dark hover:bg-black/5",
+                          ? "bg-primary text-white"
+                          : "bg-white text-neutral-dark hover:bg-secondary",
                       ].join(" ")}
                     >
                       {item.name}
@@ -154,22 +161,21 @@ const Header = () => {
                 })}
               </div>
 
-              <div className="mt-auto p-4 border-t border-secondary-dark/60">
+              <div className="mt-auto border-t border-primary/10 p-5">
                 <Link
-                  to="/contact"
+                  to="/purchase-product"
+                  className="btn-primary w-full"
                   onClick={() => setOpen(false)}
-                  className="block w-full text-center rounded-xl bg-primary px-4 py-3 text-sm font-semibold text-white shadow-sm hover:brightness-110 transition"
                 >
-                  Schedule a Call
+                  Buy Mudet Products
                 </Link>
-
                 <a
-                  href="https://wa.me/2348160550326?text=Hi%20there,%20I'd%20like%20to%20learn%20more%20about%20Mudet%20products."
+                  href="https://wa.me/2348160550326?text=Hi%20Super%20Lady,%20I%20want%20to%20ask%20about%20Mudet%20products."
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block mt-3 w-full text-center rounded-xl bg-black/5 hover:bg-black/10 px-4 py-3 text-xs font-semibold text-tetiary transition"
+                  className="btn-secondary mt-3 w-full"
                 >
-                  Message Super Lady
+                  Message on WhatsApp
                 </a>
               </div>
             </motion.aside>

@@ -1,23 +1,26 @@
-@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400..700&family=Inter:wght@400..800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400..800&family=Playfair+Display:wght@600..800&display=swap");
 @import "tailwindcss";
 
 @theme {
   --color-primary: #2b7830;
   --color-primary-deep: #1f5c27;
+  --color-primary-soft: #d8ead8;
   --color-accent: #a9890b;
+  --color-accent-soft: #f3ead0;
   --color-secondary: #eff7f0;
-  --color-tetiary: #10210f;
-  --color-neutral-dark: #10210f;
-  --color-neutral-soft: #4f6d45;
-  --color-secondary-dark: #d9d5c4;
-  --font-sans: "Inter", system-ui, sans-serif;
-  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --color-tetiary: #102015;
+  --color-neutral-dark: #102015;
+  --color-neutral-soft: #536553;
+  --color-neutral-faint: #7a8778;
+  --color-secondary-dark: #d8dccd;
+  --font-sans: "Manrope", system-ui, sans-serif;
+  --font-display: "Playfair Display", Georgia, serif;
   --text-sm: 16px;
   --text-xs: 14px;
 }
 
 .app-container {
-  @apply w-full max-w-280 mx-auto px-4;
+  @apply w-full max-w-290 mx-auto px-4 sm:px-6 lg:px-8;
 }
 
 * {
@@ -30,11 +33,35 @@ h2,
 h3,
 .font-display {
   font-family: var(--font-display);
-  letter-spacing: -0.02em;
+  letter-spacing: 0;
 }
 
 html {
   scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-[#f8fbf6] text-neutral-dark antialiased;
+}
+
+.section-kicker {
+  @apply text-[11px] font-extrabold uppercase tracking-[0.22em] text-accent;
+}
+
+.btn-primary {
+  @apply inline-flex min-h-12 items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-extrabold text-white shadow-lg shadow-primary/20 transition hover:-translate-y-0.5 hover:bg-primary-deep focus:outline-none focus:ring-4 focus:ring-primary/20;
+}
+
+.btn-secondary {
+  @apply inline-flex min-h-12 items-center justify-center rounded-full border border-primary/20 bg-white px-6 py-3 text-sm font-extrabold text-primary shadow-sm transition hover:-translate-y-0.5 hover:border-primary/35 hover:bg-secondary focus:outline-none focus:ring-4 focus:ring-primary/15;
+}
+
+.surface-card {
+  @apply rounded-[28px] border border-secondary-dark/70 bg-white shadow-xl shadow-black/5;
+}
+
+.field-control {
+  @apply mt-2 w-full rounded-2xl border border-secondary-dark/80 bg-white px-4 py-3 text-sm text-neutral-dark outline-none transition placeholder:text-neutral-faint focus:border-primary focus:ring-4 focus:ring-primary/10;
 }
 
 .no-scrollbar {
