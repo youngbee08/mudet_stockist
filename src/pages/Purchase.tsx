@@ -1,20 +1,20 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 import { HiOutlineClipboardCopy } from "react-icons/hi";
-import { Minus, Plus, ShoppingBag } from "lucide-react";
+import { Minus, Plus, ShoppingBag, Send, CheckCircle } from "lucide-react";
 import productDetails from "../lib/productDetails";
-import { useNavigate } from "react-router-dom";
-import {
-  formatPayAmountFromNaira,
-  formatPriceByCurrency,
-  useCurrencyPreference,
-} from "../utilities/formatterUtility";
-
+import { CiWarning } from "react-icons/ci";
 const makeOrderId = () => `ORD-${Math.floor(10000 + Math.random() * 90000)}`;
 
+const BANK_DETAILS = {
+  accountNumber: "2048297903",
+  accountName: "KAROLINK INTER BIZ LIMITED",
+  bank: "FirstBank",
+  phone: "08160550326",
+  whatsappPhone: "2348160550326",
+};
+
 const PurchasePage: React.FC = () => {
-  const navigate = useNavigate();
-  const fileRef = useRef<HTMLInputElement | null>(null);
   const initialQty = useMemo(() => {
     const raw = sessionStorage.getItem("productCount");
     const n = raw ? Number(raw) : 1;
@@ -22,7 +22,9 @@ const PurchasePage: React.FC = () => {
   }, []);
 
   const { products, defaultProduct } = productDetails;
-  const selectedProductId = sessionStorage.getItem("selectedProductId");
+  const [selectedProductId, setSelectedProductId] = useState<string>(
+    sessionStorage.getItem("selectedProductId") || defaultProduct.id,
+  );
   const selectedProduct =
     products.find((item) => item.id === selectedProductId) || defaultProduct;
 
@@ -31,9 +33,8 @@ const PurchasePage: React.FC = () => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
-  const [receiptFile, setReceiptFile] = useState<File | null>(null);
   const [orderId, setOrderId] = useState<string>("");
-  const { currency } = useCurrencyPreference();
+  const [isLoading, setIsLoading] = useState(false);
 
   const grossNairaAmount = useMemo(
     () => selectedProduct.price * qty,
@@ -46,13 +47,66 @@ const PurchasePage: React.FC = () => {
 
   useEffect(() => {
     setOrderId(makeOrderId());
-    if (!selectedProductId) {
-      sessionStorage.setItem("selectedProductId", selectedProduct.id);
-    }
-  }, [selectedProduct.id, selectedProductId]);
+    sessionStorage.setItem("selectedProductId", selectedProductId);
+  }, [selectedProductId]);
 
-  const savePendingOrder = (receiptName?: string) => {
-    const data = {
+  const handleCopyAccountNumber = async (text: string, label: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      toast.success(`${label} copied.`);
+    } catch {
+      toast.error("Copy failed. Please copy manually.");
+    }
+  };
+
+  const formatMessageForWhatsApp = () => {
+    const orderData = {
+      orderId: orderId || makeOrderId(),
+      productName: selectedProduct.name,
+      unitPrice: selectedProduct.price,
+      qty,
+      totalAmount: grossNairaAmount,
+      fullName,
+      email,
+      phone,
+      address,
+    };
+
+    const message = `
+*MUDET ORDER CONFIRMATION*
+
+*Order ID:* ${orderData.orderId}
+
+*Customer Details:*
+Name: ${orderData.fullName}
+Email: ${orderData.email}
+Phone: ${orderData.phone}
+Delivery Address: ${orderData.address}
+
+*Product Details:*
+Product: ${orderData.productName}
+Unit Price: ₦${orderData.unitPrice.toLocaleString()}
+Quantity: ${orderData.qty}
+*Total: ₦${orderData.totalAmount.toLocaleString()}*
+    `.trim();
+
+    return message;
+  };
+
+  const handleSubmit = () => {
+    if (!fullName.trim() || !email.trim() || !phone.trim() || !address.trim()) {
+      toast.error("Please fill all your contact and delivery details.");
+      return;
+    }
+
+    const message = formatMessageForWhatsApp();
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappUrl = `https://wa.me/${BANK_DETAILS.whatsappPhone}?text=${encodedMessage}`;
+
+    setIsLoading(true);
+    window.open(whatsappUrl, "_blank");
+
+    const orderData = {
       orderId: orderId || makeOrderId(),
       productName: selectedProduct.name,
       unitPrice: selectedProduct.price,
@@ -63,96 +117,47 @@ const PurchasePage: React.FC = () => {
       phone,
       address,
       dateISO: new Date().toISOString(),
-      status: "pending",
-      receiptFileName: receiptName,
+      status: "sent_to_whatsapp",
     };
+    sessionStorage.setItem("pendingOrder", JSON.stringify(orderData));
 
-    sessionStorage.setItem("pendingOrder", JSON.stringify(data));
-    return data;
-  };
-
-  const handlePickReceipt = () => {
-    fileRef.current?.click();
-  };
-
-  const handleCopyAccountNumber = async () => {
-    try {
-      await navigator.clipboard.writeText("08160550326");
-      toast.success("Phone number copied.");
-    } catch {
-      toast.error("Copy failed. Please copy manually.");
-    }
-  };
-
-  const handleSubmit = () => {
-    if (!fullName.trim() || !email.trim() || !phone.trim() || !address.trim()) {
-      toast.error("Please fill all your contact and delivery details.");
-      return;
-    }
-
-    savePendingOrder(receiptFile?.name);
-    navigate("/payment-status");
-    toast.success("Order saved. Complete payment and share your receipt.");
+    setIsLoading(false);
+    toast.success("Opening WhatsApp with your order details...");
   };
 
   return (
-    <section className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
-      <aside className="rounded-[32px] bg-secondary p-5 shadow-xl shadow-primary/10 sm:p-7">
-        <div className="rounded-[26px] bg-white p-5">
-          <img
-            src={selectedProduct.image}
-            alt={selectedProduct.name}
-            className="mx-auto h-72 w-full object-contain"
-          />
-        </div>
-        <div className="mt-6">
-          <p className="section-kicker">Selected product</p>
-          <h1 className="mt-2 font-display text-4xl font-bold leading-tight text-neutral-dark">
-            {selectedProduct.name}
-          </h1>
-          <p className="mt-3 text-sm leading-7 text-neutral-soft">
-            {selectedProduct.description}
-          </p>
-        </div>
-
-        <div className="mt-6 grid gap-3 sm:grid-cols-2">
-          <div className="rounded-2xl bg-white p-4">
-            <p className="text-[11px] font-extrabold uppercase tracking-[0.18em] text-neutral-faint">
-              Unit price
-            </p>
-            <p className="mt-2 text-xl font-extrabold text-primary">
-              {formatPriceByCurrency(selectedProduct.price, currency)}
-            </p>
-          </div>
-          <div className="rounded-2xl bg-neutral-dark p-4 text-white">
-            <p className="text-[11px] font-extrabold uppercase tracking-[0.18em] text-accent-soft">
-              Total
-            </p>
-            <p className="mt-2 text-xl font-extrabold">
-              {formatPayAmountFromNaira(grossNairaAmount, currency)}
-            </p>
-          </div>
-        </div>
-      </aside>
-
+    <section className="mt-10">
       <div className="surface-card p-5 sm:p-7 lg:p-8">
         <div className="flex items-start justify-between gap-4">
           <div>
-            <p className="section-kicker">Purchase form</p>
-            <h2 className="mt-2 font-display text-4xl font-bold text-neutral-dark">
-              Complete your order.
+            <h2 className="mt-2 font-display text-3xl font-bold text-neutral-dark">
+              Place Your Order
             </h2>
             <p className="mt-3 text-sm leading-7 text-neutral-soft">
-              Save your details, then share payment proof with Super Lady for
-              confirmation.
+              Select your product, provide your details, and we'll send your
+              order to WhatsApp for processing.
             </p>
-          </div>
-          <div className="hidden h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-primary text-white sm:flex">
-            <ShoppingBag className="h-5 w-5" />
           </div>
         </div>
 
-        <div className="mt-7 rounded-[24px] border border-primary/10 bg-secondary p-5">
+        <div className="mt-7 rounded-3xl border border-primary/10 bg-linear-to-br from-primary/5 to-secondary p-5">
+          <label className="text-sm font-extrabold text-neutral-dark">
+            Select Product
+          </label>
+          <select
+            value={selectedProductId}
+            onChange={(e) => setSelectedProductId(e.target.value)}
+            className="field-control mt-3"
+          >
+            {products.map((product) => (
+              <option key={product.id} value={product.id}>
+                {product.name} - ₦{product.price.toLocaleString()}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="mt-7 rounded-3xl border border-primary/10 bg-secondary p-5">
           <label className="text-sm font-extrabold text-neutral-dark">
             Quantity
           </label>
@@ -160,26 +165,35 @@ const PurchasePage: React.FC = () => {
             <button
               type="button"
               onClick={() => setQty((q) => Math.max(1, q - 1))}
-              className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-neutral-dark shadow-sm transition hover:text-primary"
+              className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-neutral-dark shadow-sm transition hover:bg-primary/10 hover:text-primary"
               aria-label="Decrease quantity"
             >
               <Minus className="h-5 w-5" />
             </button>
-            <div className="flex h-12 min-w-16 items-center justify-center rounded-2xl bg-white px-5 text-lg font-extrabold text-neutral-dark shadow-sm">
+            <div className="flex h-12 min-w-16 items-center justify-center rounded-2xl bg-white px-5 text-lg font-extrabold text-primary shadow-sm">
               {qty}
             </div>
             <button
               type="button"
               onClick={() => setQty((q) => q + 1)}
-              className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-neutral-dark shadow-sm transition hover:text-primary"
+              className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-neutral-dark shadow-sm transition hover:bg-primary/10 hover:text-primary"
               aria-label="Increase quantity"
             >
               <Plus className="h-5 w-5" />
             </button>
           </div>
+          <div className="mt-4 rounded-lg border border-primary/20 bg-primary/5 p-3">
+            <p className="text-xs text-neutral-soft">Total Amount</p>
+            <p className="mt-1 text-2xl font-bold text-primary">
+              ₦{grossNairaAmount.toLocaleString()}
+            </p>
+          </div>
         </div>
 
         <div className="mt-7 grid gap-5">
+          <h3 className="text-sm font-extrabold text-neutral-dark">
+            Your Contact Details
+          </h3>
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
               <label className="text-sm font-extrabold text-neutral-dark">
@@ -232,48 +246,89 @@ const PurchasePage: React.FC = () => {
           </div>
         </div>
 
-        <div className="mt-7 rounded-[24px] border border-accent/20 bg-accent-soft p-5">
-          <p className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-accent">
-            Contact for payment
-          </p>
-          <p className="mt-3 text-sm leading-7 text-neutral-dark">
-            Send order details to Super Lady on WhatsApp: 0816 055 0326 or email
-            mudetrealsolution@gmail.com.
-          </p>
-          <button
-            type="button"
-            onClick={handleCopyAccountNumber}
-            className="btn-secondary mt-4 gap-2 bg-white"
-          >
-            <HiOutlineClipboardCopy className="text-lg" />
-            Copy Contact Number
-          </button>
+        <div className="mt-7 flex flex-col gap-5">
+          <h3 className="text-sm font-extrabold text-neutral-dark">
+            Bank Payment Details
+          </h3>
+
+          <div className="grid gap-4 sm:grid-cols-3">
+            {/* Account Number */}
+            <div className="rounded-xl border border-accent/20 bg-white p-4 shadow-sm">
+              <p className="text-xs font-bold text-neutral-soft">
+                Account Number
+              </p>
+              <p className="mt-2 font-display text-lg font-bold text-neutral-dark">
+                {BANK_DETAILS.accountNumber}
+              </p>
+              <button
+                onClick={() =>
+                  handleCopyAccountNumber(
+                    BANK_DETAILS.accountNumber,
+                    "Account number",
+                  )
+                }
+                className="mt-3 flex items-center gap-2 text-xs font-semibold text-primary transition hover:text-primary/80"
+              >
+                <HiOutlineClipboardCopy className="h-4 w-4" />
+                Copy
+              </button>
+            </div>
+
+            <div className="rounded-xl border border-accent/20 bg-white p-4 shadow-sm">
+              <p className="text-xs font-bold text-neutral-soft">
+                Account Name
+              </p>
+              <p className="mt-2 font-display text-lg font-bold text-neutral-dark">
+                {BANK_DETAILS.accountName}
+              </p>
+              <button
+                onClick={() =>
+                  handleCopyAccountNumber(
+                    BANK_DETAILS.accountName,
+                    "Account name",
+                  )
+                }
+                className="mt-3 flex items-center gap-2 text-xs font-semibold text-primary transition hover:text-primary/80"
+              >
+                <HiOutlineClipboardCopy className="h-4 w-4" />
+                Copy
+              </button>
+            </div>
+
+            <div className="rounded-xl border border-accent/20 bg-white p-4 shadow-sm">
+              <p className="text-xs font-bold text-neutral-soft">Bank</p>
+              <p className="mt-2 font-display text-lg font-bold text-neutral-dark">
+                {BANK_DETAILS.bank}
+              </p>
+              <button
+                onClick={() =>
+                  handleCopyAccountNumber(BANK_DETAILS.bank, "Bank name")
+                }
+                className="mt-3 flex items-center gap-2 text-xs font-semibold text-primary transition hover:text-primary/80"
+              >
+                <HiOutlineClipboardCopy className="h-4 w-4" />
+                Copy
+              </button>
+            </div>
+          </div>
+
+          <div className="mt-4 rounded-lg border-l-4 border-accent/50 bg-accent/5 p-4">
+            <p className="text-xs font-semibold text-accent flex items-center gap-3">
+              <CiWarning size={20} /> Send your payment proof to WhatsApp and
+              we'll process your order in minutes.
+            </p>
+          </div>
         </div>
 
         <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-          <button onClick={handleSubmit} className="btn-primary flex-1">
-            Save Order
-          </button>
           <button
-            type="button"
-            onClick={handlePickReceipt}
-            className="btn-secondary flex-1"
+            onClick={handleSubmit}
+            disabled={isLoading}
+            className="btn-primary flex-1 gap-2"
           >
-            {receiptFile ? "Change Receipt" : "Upload Receipt"}
+            <Send className="h-5 w-5" />
+            {isLoading ? "Sending..." : "Send Order to WhatsApp"}
           </button>
-          <input
-            ref={fileRef}
-            type="file"
-            accept="image/*,application/pdf"
-            className="hidden"
-            onChange={(e) => {
-              const file = e.target.files?.[0] || null;
-              setReceiptFile(file);
-              if (file) {
-                toast.success(`Receipt selected: ${file.name}`);
-              }
-            }}
-          />
         </div>
       </div>
     </section>
