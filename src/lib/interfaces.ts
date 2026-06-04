@@ -15,11 +15,7 @@ export interface BenefitCardProps {
   icon: React.ReactNode;
   detail: string;
 }
-export interface HowItWorksCardProps {
-  name: string;
-  id: string;
-  detail: string;
-}
+
 export interface IngredientCardProps {
   title: string;
   description: string;
@@ -68,4 +64,11 @@ export interface Review {
   rating?: number;
   source?: string;
   attachment: string;
+}
+
+export interface HowItWorksCardProps {
+  name: string;
+  id: string;
+  icon: React.ReactNode;
+  detail: string;
 }

@@ -18,7 +18,7 @@ const MainLayout: React.FC<mainLayoutProps> = ({ children }) => {
       <AnimatePresence mode="wait">
         <motion.main
           key={location.pathname}
-          className="app-container pt-6 lg:pt-10"
+          className="app-container "
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 8 }}

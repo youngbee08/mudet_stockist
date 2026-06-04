@@ -30,19 +30,25 @@ const Header = () => {
         transition={{ duration: 0.25, ease: "easeOut" }}
       >
         <nav className="app-container flex h-20 items-center gap-4">
-          <Link to="/" className="flex min-w-0 items-center gap-3">
-            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-primary/15 bg-white shadow-sm">
-              <img src={assets.logo1} alt="Mudet" className="h-8 w-8 object-contain" />
-            </span>
+          <a href="/" className="flex min-w-0 items-end gap-1">
+            <img
+              src={assets.logo2}
+              alt="Mudet"
+              className="h-8 w-8 object-contain"
+            />
             <span className="flex min-w-0 flex-col leading-tight">
               <span className="truncate font-display text-xl font-bold text-tetiary">
                 Super Lady
               </span>
-              <span className="truncate text-[12px] font-bold uppercase tracking-[0.16em] text-accent">
-                Mudet Stockist
-              </span>
+              <a
+                href={"https://www.mudetrealsolution.com"}
+                target="_blank"
+                className="truncate text-[8px] font-bold uppercase tracking-[0.16em] text-accent"
+              >
+                Mudet Real Solution Stockist
+              </a>
             </span>
-          </Link>
+          </a>
 
           <div className="hidden flex-1 items-center justify-center gap-2 md:flex">
             {navitems.map((item) => {
@@ -52,7 +58,7 @@ const Header = () => {
                   key={item.name}
                   to={item.path}
                   className={[
-                    "relative rounded-full px-4 py-2 text-sm font-extrabold transition",
+                    "relative rounded-full px-4 py-2 text-sm font-bold transition",
                     active
                       ? "text-primary"
                       : "text-neutral-soft hover:bg-white hover:text-primary",
@@ -120,14 +126,22 @@ const Header = () => {
             >
               <div className="flex items-center justify-between border-b border-primary/10 px-5 py-5">
                 <div className="flex items-center gap-3">
-                  <img src={assets.logo1} alt="Mudet" className="h-10 w-10 object-contain" />
+                  <img
+                    src={assets.logo2}
+                    alt="Mudet"
+                    className="h-10 w-10 object-contain"
+                  />
                   <div className="leading-tight">
                     <p className="font-display text-lg font-bold text-tetiary">
                       Super Lady
                     </p>
-                    <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-accent">
-                      Mudet Stockist
-                    </p>
+                    <a
+                      href={"https://www.mudetrealsolution.com"}
+                      target="_blank"
+                      className="truncate text-[9px] font-bold uppercase tracking-[0.16em] text-accent"
+                    >
+                      Mudet Real Solution Stockist
+                    </a>
                   </div>
                 </div>
 
@@ -149,7 +163,7 @@ const Header = () => {
                       key={item.name}
                       to={item.path}
                       className={[
-                        "rounded-2xl px-4 py-4 text-sm font-extrabold transition",
+                        "rounded-2xl px-4 py-4 text-xs font-extrabold transition",
                         active
                           ? "bg-primary text-white"
                           : "bg-white text-neutral-dark hover:bg-secondary",

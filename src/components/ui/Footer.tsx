@@ -18,32 +18,47 @@ const Footer = () => {
         >
           <div>
             <div className="flex items-center gap-3">
-              <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white">
-                <img src={assets.logo1} alt="Mudet" className="h-8 w-8 object-contain" />
+              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-white">
+                <img
+                  src={assets.logo1}
+                  alt="Mudet"
+                  className="h-8 w-8 object-contain"
+                />
               </span>
               <div>
                 <p className="font-display text-2xl font-bold">Super Lady</p>
-                <p className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-accent-soft">
-                  Mudet Real Solution stockist
-                </p>
+                <a
+                  href={"https://www.mudetrealsolution.com"}
+                  target="_blank"
+                  className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-accent-soft"
+                >
+                  Mudet Real Solution Stockist
+                </a>
               </div>
             </div>
+            <div className="hidden lg:block">
+              <h2 className="mt-8 max-w-2xl font-display text-3xl font-bold leading-tight lg:text-5xl ">
+                Genuine Mudet products with direct stockist support.
+              </h2>
+              <p className="mt-4 max-w-xl text-sm leading-7 text-white/70">
+                Buy Cinnamon Herbal Extract and ARMOR Herbal Extract, or
+                register as a Mudet stockist through Super Lady.
+              </p>
 
-            <h2 className="mt-8 max-w-2xl font-display text-4xl font-bold leading-tight lg:text-5xl">
-              Genuine Mudet products with direct stockist support.
-            </h2>
-            <p className="mt-4 max-w-xl text-sm leading-7 text-white/70">
-              Buy Cinnamon Herbal Extract and ARMOR Herbal Extract, or register
-              as a Mudet stockist through Super Lady.
-            </p>
-
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link to="/purchase-product" className="btn-primary bg-white text-primary hover:bg-secondary">
-                Buy Products
-              </Link>
-              <Link to="/register" className="btn-secondary border-white/20 bg-white/8 text-white hover:bg-white/12">
-                Register as Stockist
-              </Link>
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <Link
+                  to="/purchase-product"
+                  className="btn-primary bg-white text-primary hover:bg-secondary"
+                >
+                  Buy Products
+                </Link>
+                <Link
+                  to="/register"
+                  className="btn-secondary border-white/20 bg-white/8 text-white hover:bg-white/12"
+                >
+                  Register as Stockist
+                </Link>
+              </div>
             </div>
           </div>
 
@@ -55,7 +70,6 @@ const Footer = () => {
               <div className="mt-5 grid gap-3">
                 {[
                   ["Home", "/"],
-                  ["About", "/about"],
                   ["Register", "/register"],
                   ["Contact", "/contact"],
                 ].map(([label, path]) => (
@@ -75,17 +89,23 @@ const Footer = () => {
                 Contact
               </p>
               <div className="mt-5 grid gap-4">
-                <a href="tel:+2348160550326" className="flex gap-3 text-sm text-white/75 transition hover:text-white">
+                <a
+                  href="tel:+2348160550326"
+                  className="flex gap-3 text-sm text-white/75 transition hover:text-white"
+                >
                   <Phone className="mt-0.5 h-4 w-4 shrink-0 text-accent-soft" />
                   0816 055 0326
                 </a>
-                <a href="mailto:mudetrealsolution@gmail.com" className="flex gap-3 text-sm text-white/75 transition hover:text-white">
+                <a
+                  href="mailto:mudetrealsolution@gmail.com"
+                  className="flex gap-3 text-sm text-white/75 transition hover:text-white"
+                >
                   <Mail className="mt-0.5 h-4 w-4 shrink-0 text-accent-soft" />
                   mudetrealsolution@gmail.com
                 </a>
                 <p className="flex gap-3 text-sm leading-6 text-white/75">
                   <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-accent-soft" />
-                  Nigeria based Mudet product stockist
+                  Oyo State, Nigeria
                 </p>
               </div>
             </div>
@@ -96,7 +116,7 @@ const Footer = () => {
               </p>
               <p className="mt-3 text-sm leading-7 text-white/70">
                 For order confirmation and payment guidance, contact Super Lady
-                directly before sending payment.
+                directly after sending payment.
               </p>
             </div>
           </div>

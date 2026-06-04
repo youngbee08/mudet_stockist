@@ -15,8 +15,8 @@
   --color-secondary-dark: #d8dccd;
   --font-sans: "Manrope", system-ui, sans-serif;
   --font-display: "Playfair Display", Georgia, serif;
-  --text-sm: 16px;
-  --text-xs: 14px;
+  /* --text-sm: 16px;
+  --text-xs: 14px; */
 }
 
 .app-container {
@@ -44,16 +44,12 @@ body {
   @apply bg-[#f8fbf6] text-neutral-dark antialiased;
 }
 
-.section-kicker {
-  @apply text-[11px] font-extrabold uppercase tracking-[0.22em] text-accent;
-}
-
 .btn-primary {
-  @apply inline-flex min-h-12 items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-extrabold text-white shadow-lg shadow-primary/20 transition hover:-translate-y-0.5 hover:bg-primary-deep focus:outline-none focus:ring-4 focus:ring-primary/20;
+  @apply cursor-pointer inline-flex min-h-12 items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-extrabold text-white shadow-lg shadow-primary/20 transition hover:-translate-y-0.5 hover:bg-primary-deep focus:outline-none focus:ring-4 focus:ring-primary/20;
 }
 
 .btn-secondary {
-  @apply inline-flex min-h-12 items-center justify-center rounded-full border border-primary/20 bg-white px-6 py-3 text-sm font-extrabold text-primary shadow-sm transition hover:-translate-y-0.5 hover:border-primary/35 hover:bg-secondary focus:outline-none focus:ring-4 focus:ring-primary/15;
+  @apply cursor-pointer inline-flex min-h-12 items-center justify-center rounded-full border border-primary/20 bg-white px-6 py-3 text-sm font-extrabold text-primary shadow-sm transition hover:-translate-y-0.5 hover:border-primary/35 hover:bg-secondary focus:outline-none focus:ring-4 focus:ring-primary/15;
 }
 
 .surface-card {

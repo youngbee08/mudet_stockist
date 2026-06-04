@@ -4,7 +4,6 @@ import MainLayout from "./components/layout/MainLayout";
 import Home from "./pages/Home";
 import { Toaster } from "sonner";
 import NotFound from "./pages/NotFound";
-import About from "./pages/About";
 import Affiliate from "./pages/Affiliate";
 import Contact from "./pages/Contact";
 import Purchase from "./pages/Purchase";
@@ -24,14 +23,7 @@ const App: React.FC = () => {
             </MainLayout>
           }
         />
-        <Route
-          path="/about"
-          element={
-            <MainLayout>
-              <About />
-            </MainLayout>
-          }
-        />
+ 
         <Route
           path="/register"
           element={
