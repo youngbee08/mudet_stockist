@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 import { HiOutlineClipboardCopy } from "react-icons/hi";
-import { Minus, Plus, ShoppingBag, Send, CheckCircle } from "lucide-react";
+import { Minus, Plus,  Send,  } from "lucide-react";
 import productDetails from "../lib/productDetails";
 import { CiWarning } from "react-icons/ci";
 const makeOrderId = () => `ORD-${Math.floor(10000 + Math.random() * 90000)}`;

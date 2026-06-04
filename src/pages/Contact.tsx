@@ -1,6 +1,5 @@
 import React, { useMemo, useState } from "react";
 import { FaWhatsapp } from "react-icons/fa";
-import { Mail, MessageCircle, Phone } from "lucide-react";
 import { toast } from "sonner";
 
 const WHATSAPP_NUMBER = "2348160550326";
