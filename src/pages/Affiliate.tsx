@@ -8,7 +8,7 @@ import { CiWarning } from "react-icons/ci";
 const BANK_DETAILS = {
   accountNumber: "2048297903",
   accountName: "KAROLINK INTER BIZ LIMITED",
-  bank: "FirstBank",
+  bank: "First Bank",
   whatsappPhone: "2348160550326",
   displayPhone: "0816 055 0326",
 };
@@ -187,17 +187,17 @@ Bank Name: ${form.bankName}
       >
         {submitted ? (
           <div className="grid gap-5">
-            <div className="rounded-[26px] bg-secondary p-7 text-center">
+            <div className="text-center">
               <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-primary text-white">
                 <Check className="h-7 w-7" />
               </div>
-              <p className="mt-5 section-kicker">Registration sent</p>
+              <p className="mt-5 section-kicker">Registration details sent</p>
               <h2 className="mt-3 font-display text-3xl font-bold text-neutral-dark">
                 Thank you for registering.
               </h2>
               <p className="mt-3 text-sm leading-7 text-neutral-soft">
-                Your details have been prepared for WhatsApp. Please complete
-                payment to the account below and send proof on WhatsApp.
+                Your details have been prepared for WhatsApp. Please send
+                payment proof (receipt) on WhatsApp.
               </p>
             </div>
           </div>

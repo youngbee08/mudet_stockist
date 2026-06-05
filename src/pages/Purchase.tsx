@@ -9,7 +9,7 @@ const makeOrderId = () => `ORD-${Math.floor(10000 + Math.random() * 90000)}`;
 const BANK_DETAILS = {
   accountNumber: "2048297903",
   accountName: "KAROLINK INTER BIZ LIMITED",
-  bank: "FirstBank",
+  bank: "First Bank",
   phone: "08160550326",
   whatsappPhone: "2348160550326",
 };
@@ -133,12 +133,12 @@ Quantity: ${orderData.qty}
             Place Your Order
           </h2>
           <p className="text-sm leading-7 text-neutral-soft">
-            Select your product, provide your details, and send your order
-            to WhatsApp for processing.
+            Select your product, provide your details, and send your order to
+            WhatsApp for processing.
           </p>
         </div>
 
-        <div className="mt-7 rounded-3xl border border-primary/10 bg-linear-to-br from-primary/5 to-secondary p-5">
+        <div className="mt-7">
           <label className="text-sm font-extrabold text-neutral-dark">
             Select Product
           </label>
