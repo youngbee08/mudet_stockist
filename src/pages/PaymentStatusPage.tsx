@@ -50,7 +50,7 @@ const PaymentStatus: React.FC = () => {
 
     return {
       title: "Payment Pending",
-      hint: "Your order has been saved. Upload or select your receipt, then share it with Super Lady on WhatsApp for verification.",
+      hint: "Your order has been saved. Upload or select your receipt, then share it with Mercy on WhatsApp for verification.",
     };
   }, [order]);
 
@@ -144,11 +144,17 @@ const PaymentStatus: React.FC = () => {
                 ["Product", order.productName],
                 [
                   "Amount",
-                  formatPayAmountFromNaira(order.unitPrice * order.qty, currency),
+                  formatPayAmountFromNaira(
+                    order.unitPrice * order.qty,
+                    currency,
+                  ),
                 ],
                 ["Date", dateText],
               ].map(([label, value]) => (
-                <div key={label} className="flex items-center justify-between gap-4 rounded-2xl bg-white px-4 py-3">
+                <div
+                  key={label}
+                  className="flex items-center justify-between gap-4 rounded-2xl bg-white px-4 py-3"
+                >
                   <span className="text-neutral-soft">{label}</span>
                   <span className="text-right font-extrabold text-neutral-dark">
                     {value}

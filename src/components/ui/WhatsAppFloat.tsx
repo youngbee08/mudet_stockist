@@ -3,7 +3,7 @@ import { FaWhatsapp } from "react-icons/fa";
 import { AnimatePresence, motion } from "framer-motion";
 
 const WHATSAPP_LINK =
-  "https://wa.me/2348160550326?text=Hi%20there,%20I'd%20like%20to%20order%20Mudet%20products%20from%20Super%20Lady.";
+  "https://wa.me/2348160550326?text=Hi%20there,%20I'd%20like%20to%20order%20Mudet%20products%20from%20Mercy.";
 
 const WhatsAppFloat: React.FC = () => {
   const [visible, setVisible] = useState(false);

@@ -1,9 +1,11 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import { toast } from "sonner";
 import { motion } from "framer-motion";
 import { Check, Send } from "lucide-react";
 import { HiOutlineClipboardCopy } from "react-icons/hi";
 import { CiWarning } from "react-icons/ci";
+import { useFormik } from "formik";
+import { affiliateFormSchema } from "../lib/validationSchemas";
 
 const BANK_DETAILS = {
   accountNumber: "2048297903",
@@ -55,56 +57,27 @@ const packages = [
 
 const Affiliate: React.FC = () => {
   const [selectedPackage, setSelectedPackage] = useState(packages[0].id);
-  const [form, setForm] = useState({
-    fullName: "",
-    userName: "",
-    gender: "",
-    dob: "",
-    email: "",
-    phone: "",
-    city: "",
-    accountNumber: "",
-    accountName: "",
-    bankName: "",
-  });
   const [submitted, setSubmitted] = useState(false);
 
-  const selectedPackageDetails = useMemo(
-    () => packages.find((pkg) => pkg.id === selectedPackage) || packages[0],
-    [selectedPackage],
-  );
+  const selectedPackageDetails =
+    packages.find((pkg) => pkg.id === selectedPackage) || packages[0];
 
-  const isCompleted = useMemo(
-    () =>
-      !!(form.fullName.trim() && form.userName,
-      form.gender.trim() &&
-        form.dob.trim() &&
-        form.email.trim() &&
-        form.phone.trim() &&
-        form.city.trim() &&
-        form.accountNumber.trim() &&
-        form.accountName.trim() &&
-        form.bankName.trim()),
-    [form],
-  );
-
-  const handleChange =
-    (key: keyof typeof form) =>
-    (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-      setForm((current) => ({ ...current, [key]: event.target.value }));
-    };
-
-  const handleCopyAccountNumber = async (text: string, label: string) => {
-    try {
-      await navigator.clipboard.writeText(text);
-      toast.success(`${label} copied.`);
-    } catch {
-      toast.error("Copy failed. Please copy manually.");
-    }
-  };
-
-  const formatWhatsAppMessage = () => {
-    return `*📌 MUDET REGISTRATION 📌*
+  const formik = useFormik({
+    initialValues: {
+      userName: "",
+      fullName: "",
+      gender: "",
+      dob: "",
+      email: "",
+      phone: "",
+      city: "",
+      accountNumber: "",
+      accountName: "",
+      bankName: "",
+    },
+    validationSchema: affiliateFormSchema,
+    onSubmit: (values) => {
+      const message = `*📌 MUDET AFFILIATE REGISTRATION 📌*
 
 *═══════════════════════════════*
 *SPONSOR & PACKAGE INFORMATION*
@@ -118,63 +91,57 @@ Products: ${selectedPackageDetails.products}
 *═══════════════════════════════*
 *NEW MEMBER DETAILS*
 *═══════════════════════════════*
-Username: ${form.userName}
-Full Name: ${form.fullName}
-Gender: ${form.gender}
-Date Of Birth: ${form.dob}
-Active E-mail: ${form.email}
-Mobile No: ${form.phone}
-Pick up City: ${form.city}
+Username: ${values.userName}
+Full Name: ${values.fullName}
+Gender: ${values.gender}
+Date Of Birth: ${values.dob}
+Active E-mail: ${values.email}
+Mobile No: ${values.phone}
+Pick up City: ${values.city}
 
 *═══════════════════════════════*
 *ACCOUNT DETAILS*
 *═══════════════════════════════*
-Account No: ${form.accountNumber}
-Account Name: ${form.accountName}
-Bank Name: ${form.bankName}
-`.trim();
-  };
+Account No: ${values.accountNumber}
+Account Name: ${values.accountName}
+Bank Name: ${values.bankName}
 
-  const getMissingFields = (): string[] => {
-    const missing: string[] = [];
-    if (!form.fullName.trim()) missing.push("Full Name");
-    if (!form.userName.trim()) missing.push("Username");
-    if (!form.gender.trim()) missing.push("Gender");
-    if (!form.dob.trim()) missing.push("Date of Birth");
-    if (!form.email.trim()) missing.push("Email");
-    if (!form.phone.trim()) missing.push("Mobile Number");
-    if (!form.city.trim()) missing.push("City");
-    if (!form.accountNumber.trim()) missing.push("Account Number");
-    if (!form.accountName.trim()) missing.push("Account Name");
-    if (!form.bankName.trim()) missing.push("Bank Name");
-    return missing;
-  };
+*═══════════════════════════════*
+*PAYMENT DETAILS - REMIT TO*
+*═══════════════════════════════*
+Account No: ${BANK_DETAILS.accountNumber}
+Account Name: ${BANK_DETAILS.accountName}
+Bank: ${BANK_DETAILS.bank}
 
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
+✓ All details verified and collected
+✓ Please complete payment and send proof`.trim();
 
-    const missingFields = getMissingFields();
-    if (missingFields.length > 0) {
-      toast.error(`Missing: ${missingFields.join(", ")}`);
-      return;
+      const registration = {
+        sponsor: "mercy01",
+        package: selectedPackageDetails.name,
+        ...values,
+        paymentInfo: BANK_DETAILS,
+        dateISO: new Date().toISOString(),
+        status: "sent_to_whatsapp",
+      };
+      sessionStorage.setItem("mudetRegistration", JSON.stringify(registration));
+
+      const encodedMessage = encodeURIComponent(message);
+      const whatsappUrl = `https://wa.me/${BANK_DETAILS.whatsappPhone}?text=${encodedMessage}`;
+      window.open(whatsappUrl, "_blank");
+
+      setSubmitted(true);
+      toast.success("Opening WhatsApp with your registration details.");
+    },
+  });
+
+  const handleCopy = async (text: string, label: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      toast.success(`${label} copied.`);
+    } catch {
+      toast.error("Copy failed. Please copy manually.");
     }
-
-    const registration = {
-      sponsor: "mercy01",
-      package: selectedPackageDetails.name,
-      ...form,
-      paymentInfo: BANK_DETAILS,
-      dateISO: new Date().toISOString(),
-      status: "sent_to_whatsapp",
-    };
-    sessionStorage.setItem("mudetRegistration", JSON.stringify(registration));
-
-    const message = encodeURIComponent(formatWhatsAppMessage());
-    const whatsappUrl = `https://wa.me/${BANK_DETAILS.whatsappPhone}?text=${message}`;
-    window.open(whatsappUrl, "_blank");
-
-    setSubmitted(true);
-    toast.success("Opening WhatsApp with your registration details.");
   };
 
   return (
@@ -212,7 +179,7 @@ Bank Name: ${form.bankName}
                 and store sponsor bonuses.
               </p>
             </div>
-            <form className="grid gap-5" onSubmit={handleSubmit}>
+            <form className="grid gap-5" onSubmit={formik.handleSubmit}>
               <div>
                 <label className="text-sm font-extrabold text-neutral-dark">
                   Choose package
@@ -234,15 +201,18 @@ Bank Name: ${form.bankName}
               <div className="rounded-3xl border border-primary/10 bg-secondary p-5">
                 <div className="flex items-start justify-between gap-4">
                   <div>
+                    <p className="section-kicker">Selected</p>
                     <h2 className="mt-2 text-2xl font-extrabold text-neutral-dark">
                       {selectedPackageDetails.name}
                     </h2>
                   </div>
+                  <p className="rounded-full bg-white px-4 py-2 text-sm font-extrabold text-primary shadow-sm">
+                    {selectedPackageDetails.pv} PV
+                  </p>
                 </div>
                 <p className="mt-3 text-sm font-bold text-neutral-soft">
                   NGN {selectedPackageDetails.price.toLocaleString()} includes{" "}
-                  {selectedPackageDetails.products} &{" "}
-                  {selectedPackageDetails.pv} point value(pv).
+                  {selectedPackageDetails.products}.
                 </p>
               </div>
 
@@ -271,11 +241,23 @@ Bank Name: ${form.bankName}
                             ? "email"
                             : "text"
                       }
-                      value={form[key as keyof typeof form]}
-                      onChange={handleChange(key as keyof typeof form)}
+                      name={key as string}
+                      value={formik.values[key as keyof typeof formik.values]}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
                       placeholder={placeholder as string}
                       className="field-control"
                     />
+                    {formik.touched[key as keyof typeof formik.touched] &&
+                      formik.errors[key as keyof typeof formik.errors] && (
+                        <p className="mt-1 text-xs text-red-500">
+                          {
+                            formik.errors[
+                              key as keyof typeof formik.errors
+                            ] as string
+                          }
+                        </p>
+                      )}
                   </div>
                 ))}
               </div>
@@ -295,10 +277,7 @@ Bank Name: ${form.bankName}
                     </p>
                     <button
                       onClick={() =>
-                        handleCopyAccountNumber(
-                          BANK_DETAILS.accountNumber,
-                          "Account number",
-                        )
+                        handleCopy(BANK_DETAILS.accountNumber, "Account number")
                       }
                       className="mt-3 flex items-center gap-2 text-xs font-semibold text-primary transition hover:text-primary/80"
                     >
@@ -316,10 +295,7 @@ Bank Name: ${form.bankName}
                     </p>
                     <button
                       onClick={() =>
-                        handleCopyAccountNumber(
-                          BANK_DETAILS.accountName,
-                          "Account name",
-                        )
+                        handleCopy(BANK_DETAILS.accountName, "Account name")
                       }
                       className="mt-3 flex items-center gap-2 text-xs font-semibold text-primary transition hover:text-primary/80"
                     >
@@ -334,9 +310,7 @@ Bank Name: ${form.bankName}
                       {BANK_DETAILS.bank}
                     </p>
                     <button
-                      onClick={() =>
-                        handleCopyAccountNumber(BANK_DETAILS.bank, "Bank name")
-                      }
+                      onClick={() => handleCopy(BANK_DETAILS.bank, "Bank name")}
                       className="mt-3 flex items-center gap-2 text-xs font-semibold text-primary transition hover:text-primary/80"
                     >
                       <HiOutlineClipboardCopy className="h-4 w-4" />
@@ -355,7 +329,7 @@ Bank Name: ${form.bankName}
 
               <button
                 type="submit"
-                disabled={!isCompleted}
+                disabled={!formik.isValid || formik.isSubmitting}
                 className="btn-primary w-full flex items-center justify-center gap-1 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <Send className="h-5 w-5" />

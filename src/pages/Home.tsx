@@ -69,7 +69,7 @@ const Home: React.FC = () => {
               </h1>
 
               <p className=" max-w-xl text-sm leading-8 text-neutral-soft sm:text-base">
-                Get your genuine Mudet herbal extracts from Super Lady. Receive
+                Get your genuine Mudet herbal extracts from Mercy. Receive
                 direct support to{" "}
                 <Link
                   to={"/purchase-product"}
@@ -127,7 +127,7 @@ const Home: React.FC = () => {
           {
             icon: <PackageCheck className="h-5 w-5" />,
             title: "Original stock",
-            text: "Products are supplied through Super Lady with clear order confirmation.",
+            text: "Products are supplied through Mercy with clear order confirmation.",
           },
           {
             icon: <Leaf className="h-5 w-5" />,
@@ -393,11 +393,11 @@ const Home: React.FC = () => {
         <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
           <div>
             <h2 className="mt-3 font-display text-3xl font-bold leading-tight text-neutral-dark sm:text-5xl">
-              Order today or ask Super Lady before you buy.
+              Order today or ask Mercy before you buy.
             </h2>
             <p className="mt-4 max-w-2xl text-base leading-8 text-neutral-soft">
               Use the product order form for a clean checkout path, or contact
-              Super Lady for payment and delivery guidance.
+              Mercy for payment and delivery guidance.
             </p>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
@@ -413,7 +413,7 @@ const Home: React.FC = () => {
               onClick={() => navigate("/contact")}
               className="btn-secondary"
             >
-              Contact Super Lady
+              Contact Mercy
             </button>
           </div>
         </div>

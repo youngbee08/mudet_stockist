@@ -26,7 +26,7 @@ const Footer = () => {
                 />
               </span>
               <div>
-                <p className="font-display text-2xl font-bold">Super Lady</p>
+                <p className="font-display text-2xl font-bold">Mercy</p>
                 <a
                   href={"https://www.mudetrealsolution.com"}
                   target="_blank"
@@ -42,7 +42,7 @@ const Footer = () => {
               </h2>
               <p className="mt-4 max-w-xl text-sm leading-7 text-white/70">
                 Buy Cinnamon Herbal Extract and ARMOR Herbal Extract, or
-                register as a Mudet stockist through Super Lady.
+                register as a Mudet stockist through Mercy.
               </p>
 
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -115,7 +115,7 @@ const Footer = () => {
                 Quick note
               </p>
               <p className="mt-3 text-sm leading-7 text-white/70">
-                For order confirmation and payment guidance, contact Super Lady
+                For order confirmation and payment guidance, contact Mercy
                 directly after sending payment.
               </p>
             </div>
@@ -123,7 +123,7 @@ const Footer = () => {
         </motion.div>
 
         <div className="mt-12 flex flex-col gap-4 border-t border-white/10 pt-6 text-xs font-bold text-white/55 sm:flex-row sm:items-center sm:justify-between">
-          <p>Copyright {year} Super Lady. All rights reserved.</p>
+          <p>Copyright {year} Mercy. All rights reserved.</p>
           <a
             href="https://zenithdevtech.name.ng"
             target="_blank"

@@ -38,7 +38,7 @@ const Header = () => {
             />
             <span className="flex min-w-0 flex-col leading-tight">
               <span className="truncate font-display text-xl font-bold text-tetiary">
-                Super Lady
+                Mercy
               </span>
               <a
                 href={"https://www.mudetrealsolution.com"}
@@ -133,7 +133,7 @@ const Header = () => {
                   />
                   <div className="leading-tight">
                     <p className="font-display text-lg font-bold text-tetiary">
-                      Super Lady
+                      Mercy
                     </p>
                     <a
                       href={"https://www.mudetrealsolution.com"}

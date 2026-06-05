@@ -1,48 +1,35 @@
-import React, { useMemo, useState } from "react";
+import React from "react";
 import { FaWhatsapp } from "react-icons/fa";
 import { toast } from "sonner";
+import { useFormik } from "formik";
+import { contactFormSchema } from "../lib/validationSchemas";
 
 const WHATSAPP_NUMBER = "2348160550326";
 
 const Contact: React.FC = () => {
-  const [form, setForm] = useState({
-    fullName: "",
-    email: "",
-    subject: "",
-    message: "",
+  const formik = useFormik({
+    initialValues: {
+      fullName: "",
+      email: "",
+      subject: "",
+      message: "",
+    },
+    validationSchema: contactFormSchema,
+    onSubmit: (values) => {
+      const text =
+        `Hello, my name is ${values.fullName}.\n\n` +
+        `Email: ${values.email}\n` +
+        `Subject: ${values.subject || "General enquiry"}\n\n` +
+        `Message:\n${values.message}`;
+
+      window.open(
+        `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`,
+        "_blank",
+      );
+      toast.success("Opening WhatsApp with your message...");
+      formik.resetForm();
+    },
   });
-
-  const onChange =
-    (key: keyof typeof form) =>
-    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      setForm((prev) => ({ ...prev, [key]: e.target.value }));
-    };
-
-  const canSend = useMemo(
-    () => !!(form.fullName.trim() && form.email.trim() && form.message.trim()),
-    [form.fullName, form.email, form.message],
-  );
-
-  const buildWhatsAppLink = () => {
-    const text =
-      `Hello, my name is ${form.fullName || "-"}.\n\n` +
-      `Email: ${form.email || "-"}\n` +
-      `Subject: ${form.subject || "General enquiry"}\n\n` +
-      `Message:\n${form.message || "-"}`;
-
-    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
-  };
-
-  const onSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!canSend) {
-      toast.error("Please fill your name, email, and message.");
-      return;
-    }
-
-    window.open(buildWhatsAppLink(), "_blank");
-  };
 
   return (
     <section className="mt-10 w-full lg:w-[70%] mx-auto">
@@ -58,18 +45,25 @@ const Contact: React.FC = () => {
           </div>
         </div>
 
-        <form onSubmit={onSubmit} className="mt-7 grid gap-5">
+        <form onSubmit={formik.handleSubmit} className="mt-7 grid gap-5">
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
               <label className="text-sm font-extrabold text-neutral-dark">
                 Full name
               </label>
               <input
-                value={form.fullName}
-                onChange={onChange("fullName")}
+                name="fullName"
+                value={formik.values.fullName}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
                 placeholder="Enter your name"
                 className="field-control"
               />
+              {formik.touched.fullName && formik.errors.fullName && (
+                <p className="mt-1 text-xs text-red-500">
+                  {formik.errors.fullName}
+                </p>
+              )}
             </div>
             <div>
               <label className="text-sm font-extrabold text-neutral-dark">
@@ -77,11 +71,18 @@ const Contact: React.FC = () => {
               </label>
               <input
                 type="email"
-                value={form.email}
-                onChange={onChange("email")}
+                name="email"
+                value={formik.values.email}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
                 placeholder="name@example.com"
                 className="field-control"
               />
+              {formik.touched.email && formik.errors.email && (
+                <p className="mt-1 text-xs text-red-500">
+                  {formik.errors.email}
+                </p>
+              )}
             </div>
           </div>
 
@@ -90,11 +91,18 @@ const Contact: React.FC = () => {
               Subject
             </label>
             <input
-              value={form.subject}
-              onChange={onChange("subject")}
+              name="subject"
+              value={formik.values.subject}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
               placeholder="Order, payment, delivery, or registration"
               className="field-control"
             />
+            {formik.touched.subject && formik.errors.subject && (
+              <p className="mt-1 text-xs text-red-500">
+                {formik.errors.subject}
+              </p>
+            )}
           </div>
 
           <div>
@@ -103,23 +111,32 @@ const Contact: React.FC = () => {
             </label>
             <textarea
               rows={7}
-              value={form.message}
-              onChange={onChange("message")}
+              name="message"
+              value={formik.values.message}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
               placeholder="Write your message here"
               className="field-control resize-none"
             />
+            {formik.touched.message && formik.errors.message && (
+              <p className="mt-1 text-xs text-red-500">
+                {formik.errors.message}
+              </p>
+            )}
           </div>
 
           <button
             type="submit"
-            disabled={!canSend}
+            disabled={!formik.isValid || formik.isSubmitting}
             className={[
               "btn-primary w-full gap-2",
-              !canSend ? "pointer-events-none opacity-60" : "",
+              !formik.isValid || formik.isSubmitting
+                ? "pointer-events-none opacity-60"
+                : "",
             ].join(" ")}
           >
             <FaWhatsapp className="h-5 w-5" />
-            Send Message
+            {formik.isSubmitting ? "Sending..." : "Send Message"}
           </button>
         </form>
       </div>
