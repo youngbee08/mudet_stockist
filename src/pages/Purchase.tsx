@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 import { HiOutlineClipboardCopy } from "react-icons/hi";
-import { Minus, Plus,  Send,  } from "lucide-react";
+import { Minus, Plus, Send } from "lucide-react";
 import productDetails from "../lib/productDetails";
 import { CiWarning } from "react-icons/ci";
 const makeOrderId = () => `ORD-${Math.floor(10000 + Math.random() * 90000)}`;
@@ -128,16 +128,14 @@ Quantity: ${orderData.qty}
   return (
     <section className="mt-10">
       <div className="surface-card p-5 sm:p-7 lg:p-8">
-        <div className="flex items-start justify-between gap-4">
-          <div>
-            <h2 className="mt-2 font-display text-3xl font-bold text-neutral-dark">
-              Place Your Order
-            </h2>
-            <p className="mt-3 text-sm leading-7 text-neutral-soft">
-              Select your product, provide your details, and we'll send your
-              order to WhatsApp for processing.
-            </p>
-          </div>
+        <div>
+          <h2 className="mt-2 font-display text-3xl font-bold text-neutral-dark">
+            Place Your Order
+          </h2>
+          <p className="text-sm leading-7 text-neutral-soft">
+            Select your product, provide your details, and send your order
+            to WhatsApp for processing.
+          </p>
         </div>
 
         <div className="mt-7 rounded-3xl border border-primary/10 bg-linear-to-br from-primary/5 to-secondary p-5">
@@ -252,7 +250,6 @@ Quantity: ${orderData.qty}
           </h3>
 
           <div className="grid gap-4 sm:grid-cols-3">
-            {/* Account Number */}
             <div className="rounded-xl border border-accent/20 bg-white p-4 shadow-sm">
               <p className="text-xs font-bold text-neutral-soft">
                 Account Number

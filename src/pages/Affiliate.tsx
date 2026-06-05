@@ -1,7 +1,17 @@
 import React, { useMemo, useState } from "react";
 import { toast } from "sonner";
 import { motion } from "framer-motion";
-import {  Check} from "lucide-react";
+import { Check, Send } from "lucide-react";
+import { HiOutlineClipboardCopy } from "react-icons/hi";
+import { CiWarning } from "react-icons/ci";
+
+const BANK_DETAILS = {
+  accountNumber: "2048297903",
+  accountName: "KAROLINK INTER BIZ LIMITED",
+  bank: "FirstBank",
+  whatsappPhone: "2348160550326",
+  displayPhone: "0816 055 0326",
+};
 
 const packages = [
   { id: "lunch", name: "Lunch", price: 14000, pv: 10, products: "1 bottle" },
@@ -47,6 +57,7 @@ const Affiliate: React.FC = () => {
   const [selectedPackage, setSelectedPackage] = useState(packages[0].id);
   const [form, setForm] = useState({
     fullName: "",
+    userName: "",
     gender: "",
     dob: "",
     email: "",
@@ -65,15 +76,15 @@ const Affiliate: React.FC = () => {
 
   const isCompleted = useMemo(
     () =>
-      !!(
-        form.fullName.trim() &&
+      !!(form.fullName.trim() && form.userName,
+      form.gender.trim() &&
+        form.dob.trim() &&
         form.email.trim() &&
         form.phone.trim() &&
         form.city.trim() &&
         form.accountNumber.trim() &&
         form.accountName.trim() &&
-        form.bankName.trim()
-      ),
+        form.bankName.trim()),
     [form],
   );
 
@@ -83,10 +94,68 @@ const Affiliate: React.FC = () => {
       setForm((current) => ({ ...current, [key]: event.target.value }));
     };
 
+  const handleCopyAccountNumber = async (text: string, label: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      toast.success(`${label} copied.`);
+    } catch {
+      toast.error("Copy failed. Please copy manually.");
+    }
+  };
+
+  const formatWhatsAppMessage = () => {
+    return `*📌 MUDET REGISTRATION 📌*
+
+*═══════════════════════════════*
+*SPONSOR & PACKAGE INFORMATION*
+*═══════════════════════════════*
+Sponsor Username: mercy01
+Reg. Package: ${selectedPackageDetails.name}
+Price: NGN ${selectedPackageDetails.price.toLocaleString()}
+PV Points: ${selectedPackageDetails.pv}
+Products: ${selectedPackageDetails.products}
+
+*═══════════════════════════════*
+*NEW MEMBER DETAILS*
+*═══════════════════════════════*
+Username: ${form.userName}
+Full Name: ${form.fullName}
+Gender: ${form.gender}
+Date Of Birth: ${form.dob}
+Active E-mail: ${form.email}
+Mobile No: ${form.phone}
+Pick up City: ${form.city}
+
+*═══════════════════════════════*
+*ACCOUNT DETAILS*
+*═══════════════════════════════*
+Account No: ${form.accountNumber}
+Account Name: ${form.accountName}
+Bank Name: ${form.bankName}
+`.trim();
+  };
+
+  const getMissingFields = (): string[] => {
+    const missing: string[] = [];
+    if (!form.fullName.trim()) missing.push("Full Name");
+    if (!form.userName.trim()) missing.push("Username");
+    if (!form.gender.trim()) missing.push("Gender");
+    if (!form.dob.trim()) missing.push("Date of Birth");
+    if (!form.email.trim()) missing.push("Email");
+    if (!form.phone.trim()) missing.push("Mobile Number");
+    if (!form.city.trim()) missing.push("City");
+    if (!form.accountNumber.trim()) missing.push("Account Number");
+    if (!form.accountName.trim()) missing.push("Account Name");
+    if (!form.bankName.trim()) missing.push("Bank Name");
+    return missing;
+  };
+
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    if (!isCompleted) {
-      toast.error("Please fill all registration and account details.");
+
+    const missingFields = getMissingFields();
+    if (missingFields.length > 0) {
+      toast.error(`Missing: ${missingFields.join(", ")}`);
       return;
     }
 
@@ -94,10 +163,18 @@ const Affiliate: React.FC = () => {
       sponsor: "mercy01",
       package: selectedPackageDetails.name,
       ...form,
+      paymentInfo: BANK_DETAILS,
+      dateISO: new Date().toISOString(),
+      status: "sent_to_whatsapp",
     };
     sessionStorage.setItem("mudetRegistration", JSON.stringify(registration));
+
+    const message = encodeURIComponent(formatWhatsAppMessage());
+    const whatsappUrl = `https://wa.me/${BANK_DETAILS.whatsappPhone}?text=${message}`;
+    window.open(whatsappUrl, "_blank");
+
     setSubmitted(true);
-    toast.success("Registration details saved. We will contact you soon.");
+    toast.success("Opening WhatsApp with your registration details.");
   };
 
   return (
@@ -114,112 +191,179 @@ const Affiliate: React.FC = () => {
               <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-primary text-white">
                 <Check className="h-7 w-7" />
               </div>
-              <p className="mt-5 section-kicker">Registration saved</p>
+              <p className="mt-5 section-kicker">Registration sent</p>
               <h2 className="mt-3 font-display text-3xl font-bold text-neutral-dark">
                 Thank you for registering.
               </h2>
               <p className="mt-3 text-sm leading-7 text-neutral-soft">
-                Super Lady will review your package choice and contact you with
-                the next steps.
-              </p>
-            </div>
-            <div className="grid gap-3 rounded-3xl border border-primary/10 bg-white p-5">
-              <p className="section-kicker">Selected package</p>
-              <p className="text-2xl font-extrabold text-neutral-dark">
-                {selectedPackageDetails.name}
-              </p>
-              <p className="text-sm font-bold text-primary">
-                NGN {selectedPackageDetails.price.toLocaleString()} /{" "}
-                {selectedPackageDetails.pv} PV /{" "}
-                {selectedPackageDetails.products}
+                Your details have been prepared for WhatsApp. Please complete
+                payment to the account below and send proof on WhatsApp.
               </p>
             </div>
           </div>
         ) : (
-          <form className="grid gap-5" onSubmit={handleSubmit}>
+          <div className="flex flex-col gap-4">
             <div>
-              <label className="text-sm font-extrabold text-neutral-dark">
-                Choose package
-              </label>
-              <select
-                value={selectedPackage}
-                onChange={(event) => setSelectedPackage(event.target.value)}
-                className="field-control"
-              >
-                {packages.map((pkg) => (
-                  <option key={pkg.id} value={pkg.id}>
-                    {pkg.name} - NGN {pkg.price.toLocaleString()} - {pkg.pv} PV
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div className="rounded-3xl border border-primary/10 bg-secondary p-5">
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <p className="section-kicker">Selected</p>
-                  <h2 className="mt-2 text-2xl font-extrabold text-neutral-dark">
-                    {selectedPackageDetails.name}
-                  </h2>
-                </div>
-                <p className="rounded-full bg-white px-4 py-2 text-sm font-extrabold text-primary shadow-sm">
-                  {selectedPackageDetails.pv} PV
-                </p>
-              </div>
-              <p className="mt-3 text-sm font-bold text-neutral-soft">
-                NGN {selectedPackageDetails.price.toLocaleString()} includes{" "}
-                {selectedPackageDetails.products}.
+              <h2 className="text-xl lg:text-3xl font-extrabold text-neutral-dark">
+                Complete Registration
+              </h2>
+              <p className="text-sm leading-7 text-neutral-soft">
+                Choose a startup package to access exclusive herbal extracts,
+                and store sponsor bonuses.
               </p>
             </div>
+            <form className="grid gap-5" onSubmit={handleSubmit}>
+              <div>
+                <label className="text-sm font-extrabold text-neutral-dark">
+                  Choose package
+                </label>
+                <select
+                  value={selectedPackage}
+                  onChange={(event) => setSelectedPackage(event.target.value)}
+                  className="field-control"
+                >
+                  {packages.map((pkg) => (
+                    <option key={pkg.id} value={pkg.id}>
+                      {pkg.name} - NGN {pkg.price.toLocaleString()} - {pkg.pv}{" "}
+                      PV
+                    </option>
+                  ))}
+                </select>
+              </div>
 
-            <div className="grid gap-4 sm:grid-cols-2">
-              {[
-                ["fullName", "Full name", "Your full name"],
-                ["gender", "Gender", "Male / Female"],
-                ["dob", "Date of birth", ""],
-                ["email", "Active email", "name@example.com"],
-                ["phone", "Mobile number", "0816 055 0326"],
-                ["city", "Pickup city", "Your city"],
-                ["accountNumber", "Account number", "Bank account number"],
-                ["accountName", "Account name", "Account holder name"],
-              ].map(([key, label, placeholder]) => (
-                <div key={key}>
-                  <label className="text-sm font-extrabold text-neutral-dark">
-                    {label}
-                  </label>
-                  <input
-                    type={
-                      key === "dob"
-                        ? "date"
-                        : key === "email"
-                          ? "email"
-                          : "text"
-                    }
-                    value={form[key as keyof typeof form]}
-                    onChange={handleChange(key as keyof typeof form)}
-                    placeholder={placeholder}
-                    className="field-control"
-                  />
+              <div className="rounded-3xl border border-primary/10 bg-secondary p-5">
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <h2 className="mt-2 text-2xl font-extrabold text-neutral-dark">
+                      {selectedPackageDetails.name}
+                    </h2>
+                  </div>
                 </div>
-              ))}
-            </div>
+                <p className="mt-3 text-sm font-bold text-neutral-soft">
+                  NGN {selectedPackageDetails.price.toLocaleString()} includes{" "}
+                  {selectedPackageDetails.products} &{" "}
+                  {selectedPackageDetails.pv} point value(pv).
+                </p>
+              </div>
 
-            <div>
-              <label className="text-sm font-extrabold text-neutral-dark">
-                Bank name
-              </label>
-              <input
-                value={form.bankName}
-                onChange={handleChange("bankName")}
-                placeholder="Bank name"
-                className="field-control"
-              />
-            </div>
+              <div className="grid gap-4 sm:grid-cols-2">
+                {[
+                  ["fullName", "Full name", "Your full name"],
+                  ["userName", "Username", "Your username"],
+                  ["gender", "Gender", "Male / Female"],
+                  ["dob", "Date of birth", ""],
+                  ["email", "Email address", "name@example.com"],
+                  ["phone", "Mobile number", "0816 055 0326"],
+                  ["city", "City", "Your city"],
+                  ["accountNumber", "Account number", "Bank account number"],
+                  ["accountName", "Account name", "Account holder name"],
+                  ["bankName", "Bank name", "Bank name"],
+                ].map(([key, label, placeholder]) => (
+                  <div key={key as string}>
+                    <label className="text-sm font-extrabold text-neutral-dark">
+                      {label}
+                    </label>
+                    <input
+                      type={
+                        key === "dob"
+                          ? "date"
+                          : key === "email"
+                            ? "email"
+                            : "text"
+                      }
+                      value={form[key as keyof typeof form]}
+                      onChange={handleChange(key as keyof typeof form)}
+                      placeholder={placeholder as string}
+                      className="field-control"
+                    />
+                  </div>
+                ))}
+              </div>
 
-            <button type="submit" className="btn-primary w-full">
-              Complete Registration
-            </button>
-          </form>
+              <div className="mt-7 flex flex-col gap-5">
+                <h3 className="text-sm font-extrabold text-neutral-dark">
+                  Bank Payment Details
+                </h3>
+
+                <div className="grid gap-4 sm:grid-cols-3">
+                  <div className="rounded-xl border border-accent/20 bg-white p-4 shadow-sm">
+                    <p className="text-xs font-bold text-neutral-soft">
+                      Account Number
+                    </p>
+                    <p className="mt-2 font-display text-lg font-bold text-neutral-dark">
+                      {BANK_DETAILS.accountNumber}
+                    </p>
+                    <button
+                      onClick={() =>
+                        handleCopyAccountNumber(
+                          BANK_DETAILS.accountNumber,
+                          "Account number",
+                        )
+                      }
+                      className="mt-3 flex items-center gap-2 text-xs font-semibold text-primary transition hover:text-primary/80"
+                    >
+                      <HiOutlineClipboardCopy className="h-4 w-4" />
+                      Copy
+                    </button>
+                  </div>
+
+                  <div className="rounded-xl border border-accent/20 bg-white p-4 shadow-sm">
+                    <p className="text-xs font-bold text-neutral-soft">
+                      Account Name
+                    </p>
+                    <p className="mt-2 font-display text-lg font-bold text-neutral-dark">
+                      {BANK_DETAILS.accountName}
+                    </p>
+                    <button
+                      onClick={() =>
+                        handleCopyAccountNumber(
+                          BANK_DETAILS.accountName,
+                          "Account name",
+                        )
+                      }
+                      className="mt-3 flex items-center gap-2 text-xs font-semibold text-primary transition hover:text-primary/80"
+                    >
+                      <HiOutlineClipboardCopy className="h-4 w-4" />
+                      Copy
+                    </button>
+                  </div>
+
+                  <div className="rounded-xl border border-accent/20 bg-white p-4 shadow-sm">
+                    <p className="text-xs font-bold text-neutral-soft">Bank</p>
+                    <p className="mt-2 font-display text-lg font-bold text-neutral-dark">
+                      {BANK_DETAILS.bank}
+                    </p>
+                    <button
+                      onClick={() =>
+                        handleCopyAccountNumber(BANK_DETAILS.bank, "Bank name")
+                      }
+                      className="mt-3 flex items-center gap-2 text-xs font-semibold text-primary transition hover:text-primary/80"
+                    >
+                      <HiOutlineClipboardCopy className="h-4 w-4" />
+                      Copy
+                    </button>
+                  </div>
+                </div>
+
+                <div className="mt-4 rounded-lg border-l-4 border-accent/50 bg-accent/5 p-4">
+                  <p className="text-xs font-semibold text-accent flex items-center gap-3">
+                    <CiWarning size={20} /> Send your payment proof to WhatsApp
+                    and we'll verify your payment in minutes.
+                  </p>
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                disabled={!isCompleted}
+                className="btn-primary w-full flex items-center justify-center gap-1 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <Send className="h-5 w-5" />
+                Complete Registration{" "}
+                <span className="hidden lg:flex">via WhatsApp</span>
+              </button>
+            </form>
+          </div>
         )}
       </motion.div>
     </section>

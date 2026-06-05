@@ -49,9 +49,12 @@ const Contact: React.FC = () => {
       <div className="surface-card p-5 sm:p-7 lg:p-8">
         <div className="flex items-start justify-between gap-4">
           <div>
-            <h2 className="mt-2 text-3xl font-extrabold text-neutral-dark">
+            <h2 className="mt-2 text-xl lg:text-3xl font-extrabold text-neutral-dark">
               Continue on WhatsApp
             </h2>
+            <p className="text-sm leading-7 text-neutral-soft">
+              Feel free to reach out if you have any questions or feedback.
+            </p>
           </div>
         </div>
 
