@@ -2,8 +2,8 @@
   "redirects": [
     {
       "source": "/(.*)",
-      "has": [{ "type": "host", "value": "doubleredrose-gladys.info" }],
-      "destination": "https://www.doubleredrose-gladys.info/$1",
+      "has": [{ "type": "host", "value": "mudet-mercy.info" }],
+      "destination": "https://www.mudet-mercy.info/$1",
       "permanent": true
     }
   ],
