@@ -8,7 +8,7 @@ const HowToUseCard: React.FC<HowToUseCardProps> = ({
 }) => {
   return (
     <div className="group h-full rounded-2xl border border-secondary-dark/70 bg-white p-5 shadow-md shadow-black/5 transition hover:-translate-y-0.5">
-      <span className="inline-flex items-center justify-center h-8 w-8 rounded-full bg-primary/10 text-primary text-xs font-bold">
+      <span className="inline-flex items-center justify-center h-8 w-8 rounded-2xl bg-primary/10 text-primary text-xs font-bold">
         {step}
       </span>
 

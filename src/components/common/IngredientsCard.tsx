@@ -26,8 +26,8 @@ const IngredientCard: React.FC<IngredientCardComponentProps> = ({
     >
       <div className="flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-4">
         <div className="relative shrink-0 self-start">
-          <span className="absolute -inset-1 rounded-full bg-primary/15 blur-sm opacity-0 group-hover:opacity-100 transition-opacity" />
-          <div className="flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-full bg-primary/10 overflow-hidden">
+          <span className="absolute -inset-1 rounded-2xl bg-primary/15 blur-sm opacity-0 group-hover:opacity-100 transition-opacity" />
+          <div className="flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-2xl bg-primary/10 overflow-hidden">
             <img
               src={image}
               alt={`${title}-image`}

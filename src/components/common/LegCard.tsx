@@ -15,7 +15,7 @@ const LegCard: React.FC<LegCardProps> = ({
     <div className="group h-full rounded-2xl border border-secondary-dark/70 bg-white p-4 sm:p-6 shadow-md shadow-black/5 transition hover:-translate-y-0.5">
       <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
         <div className="flex items-start gap-3 min-w-0">
-          <div className="shrink-0 h-10 w-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
+          <div className="shrink-0 h-10 w-10 rounded-2xl bg-primary/10 text-primary flex items-center justify-center">
             <HiSquares2X2 className="text-xl" />
           </div>
 
@@ -29,7 +29,7 @@ const LegCard: React.FC<LegCardProps> = ({
           </div>
         </div>
 
-        <span className="self-start sm:self-auto shrink-0 inline-flex items-center rounded-full border border-secondary-dark/70 bg-white px-3 py-1 text-[10px] font-bold tracking-widest uppercase text-neutral-soft">
+        <span className="self-start sm:self-auto shrink-0 inline-flex items-center rounded-2xl border border-secondary-dark/70 bg-white px-3 py-1 text-[10px] font-bold tracking-widest uppercase text-neutral-soft">
           {tag}
         </span>
       </div>
@@ -38,7 +38,7 @@ const LegCard: React.FC<LegCardProps> = ({
           <Link
             to={href}
             target="_blank"
-            className="inline-flex w-full items-center justify-center rounded-xl border border-primary bg-white px-4 py-3 text-sm font-bold text-primary transition hover:bg-primary hover:text-white"
+            className="inline-flex w-full items-center justify-center rounded-2xl border border-primary bg-white px-4 py-3 text-sm font-bold text-primary transition hover:bg-primary hover:text-white"
           >
             {cta}
           </Link>
@@ -46,7 +46,7 @@ const LegCard: React.FC<LegCardProps> = ({
           <button
             type="button"
             onClick={onClick}
-            className="inline-flex w-full items-center justify-center rounded-xl border border-primary bg-white px-4 py-3 text-sm font-bold text-primary transition hover:bg-primary hover:text-white"
+            className="inline-flex w-full items-center justify-center rounded-2xl border border-primary bg-white px-4 py-3 text-sm font-bold text-primary transition hover:bg-primary hover:text-white"
           >
             {cta}
           </button>

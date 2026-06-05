@@ -155,7 +155,7 @@ Bank: ${BANK_DETAILS.bank}
         {submitted ? (
           <div className="grid gap-5">
             <div className="text-center">
-              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-primary text-white">
+              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-primary text-white">
                 <Check className="h-7 w-7" />
               </div>
               <p className="mt-5 section-kicker">Registration details sent</p>
@@ -198,7 +198,7 @@ Bank: ${BANK_DETAILS.bank}
                 </select>
               </div>
 
-              <div className="rounded-3xl border border-primary/10 bg-secondary p-5">
+              <div className="rounded-2xl border border-primary/10 bg-secondary p-5">
                 <div className="flex items-start justify-between gap-4">
                   <div>
                     <p className="section-kicker">Selected</p>
@@ -206,7 +206,7 @@ Bank: ${BANK_DETAILS.bank}
                       {selectedPackageDetails.name}
                     </h2>
                   </div>
-                  <p className="rounded-full bg-white px-4 py-2 text-sm font-extrabold text-primary shadow-sm">
+                  <p className="rounded-2xl bg-white px-4 py-2 text-sm font-extrabold text-primary shadow-sm">
                     {selectedPackageDetails.pv} PV
                   </p>
                 </div>
@@ -268,7 +268,7 @@ Bank: ${BANK_DETAILS.bank}
                 </h3>
 
                 <div className="grid gap-4 sm:grid-cols-3">
-                  <div className="rounded-xl border border-accent/20 bg-white p-4 shadow-sm">
+                  <div className="rounded-2xl border border-accent/20 bg-white p-4 shadow-sm">
                     <p className="text-xs font-bold text-neutral-soft">
                       Account Number
                     </p>
@@ -286,7 +286,7 @@ Bank: ${BANK_DETAILS.bank}
                     </button>
                   </div>
 
-                  <div className="rounded-xl border border-accent/20 bg-white p-4 shadow-sm">
+                  <div className="rounded-2xl border border-accent/20 bg-white p-4 shadow-sm">
                     <p className="text-xs font-bold text-neutral-soft">
                       Account Name
                     </p>
@@ -304,7 +304,7 @@ Bank: ${BANK_DETAILS.bank}
                     </button>
                   </div>
 
-                  <div className="rounded-xl border border-accent/20 bg-white p-4 shadow-sm">
+                  <div className="rounded-2xl border border-accent/20 bg-white p-4 shadow-sm">
                     <p className="text-xs font-bold text-neutral-soft">Bank</p>
                     <p className="mt-2 font-display text-lg font-bold text-neutral-dark">
                       {BANK_DETAILS.bank}
@@ -319,7 +319,7 @@ Bank: ${BANK_DETAILS.bank}
                   </div>
                 </div>
 
-                <div className="mt-4 rounded-lg border-l-4 border-accent/50 bg-accent/5 p-4">
+                <div className="mt-4 rounded-2xl border-l-4 border-accent/50 bg-accent/5 p-4">
                   <p className="text-xs font-semibold text-accent flex items-center gap-3">
                     <CiWarning size={20} /> Send your payment proof to WhatsApp
                     and we'll verify your payment in minutes.

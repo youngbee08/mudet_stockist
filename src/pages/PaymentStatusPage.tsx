@@ -120,8 +120,8 @@ const PaymentStatus: React.FC = () => {
           </div>
 
           <div className="mt-8 text-center">
-            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-white/10">
-              <div className="flex h-11 w-11 items-center justify-center rounded-full bg-primary text-white">
+            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-white/10">
+              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary text-white">
                 <Check className="h-6 w-6" />
               </div>
             </div>
@@ -136,7 +136,7 @@ const PaymentStatus: React.FC = () => {
         </div>
 
         <div className="p-5 sm:p-8">
-          <div className="rounded-[24px] bg-secondary p-5">
+          <div className="rounded-2xl bg-secondary p-5">
             <p className="section-kicker">Order summary</p>
             <div className="mt-5 grid gap-3 text-sm">
               {[
@@ -205,7 +205,7 @@ const PaymentStatus: React.FC = () => {
           <button
             type="button"
             onClick={handleResetOrder}
-            className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full border border-secondary-dark/70 bg-white px-5 py-3 text-sm font-extrabold text-neutral-dark transition hover:bg-secondary"
+            className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-secondary-dark/70 bg-white px-5 py-3 text-sm font-extrabold text-neutral-dark transition hover:bg-secondary"
           >
             <RotateCcw className="h-4 w-4" />
             Start New Order

@@ -58,7 +58,7 @@ const Header = () => {
                   key={item.name}
                   to={item.path}
                   className={[
-                    "relative rounded-full px-4 py-2 text-sm font-bold transition",
+                    "relative rounded-2xl px-4 py-2 text-sm font-bold transition",
                     active
                       ? "text-primary"
                       : "text-neutral-soft hover:bg-white hover:text-primary",
@@ -67,7 +67,7 @@ const Header = () => {
                   {active && (
                     <motion.span
                       layoutId="activeNavPill"
-                      className="absolute inset-0 rounded-full bg-primary/10"
+                      className="absolute inset-0 rounded-2xl bg-primary/10"
                       transition={{ duration: 0.25, ease: "easeOut" }}
                     />
                   )}

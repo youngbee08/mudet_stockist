@@ -144,7 +144,7 @@ Please make payment and send proof for confirmation.
           </select>
         </div>
 
-        <div className="mt-7 rounded-3xl border border-primary/10 bg-secondary p-5">
+        <div className="mt-7 rounded-2xl border border-primary/10 bg-secondary p-5">
           <label className="text-sm font-extrabold text-neutral-dark">
             Quantity
           </label>
@@ -169,7 +169,7 @@ Please make payment and send proof for confirmation.
               <Plus className="h-5 w-5" />
             </button>
           </div>
-          <div className="mt-4 rounded-lg border border-primary/20 bg-primary/5 p-3">
+          <div className="mt-4 rounded-2xl border border-primary/20 bg-primary/5 p-3">
             <p className="text-xs text-neutral-soft">Total Amount</p>
             <p className="mt-1 text-2xl font-bold text-primary">
               ₦{grossNairaAmount.toLocaleString()}
@@ -266,7 +266,7 @@ Please make payment and send proof for confirmation.
             </h3>
 
             <div className="grid gap-4 sm:grid-cols-3">
-              <div className="rounded-xl border border-accent/20 bg-white p-4 shadow-sm">
+              <div className="rounded-2xl border border-accent/20 bg-white p-4 shadow-sm">
                 <p className="text-xs font-bold text-neutral-soft">
                   Account Number
                 </p>
@@ -284,7 +284,7 @@ Please make payment and send proof for confirmation.
                 </button>
               </div>
 
-              <div className="rounded-xl border border-accent/20 bg-white p-4 shadow-sm">
+              <div className="rounded-2xl border border-accent/20 bg-white p-4 shadow-sm">
                 <p className="text-xs font-bold text-neutral-soft">
                   Account Name
                 </p>
@@ -302,7 +302,7 @@ Please make payment and send proof for confirmation.
                 </button>
               </div>
 
-              <div className="rounded-xl border border-accent/20 bg-white p-4 shadow-sm">
+              <div className="rounded-2xl border border-accent/20 bg-white p-4 shadow-sm">
                 <p className="text-xs font-bold text-neutral-soft">Bank</p>
                 <p className="mt-2 font-display text-lg font-bold text-neutral-dark">
                   {BANK_DETAILS.bank}
@@ -317,7 +317,7 @@ Please make payment and send proof for confirmation.
               </div>
             </div>
 
-            <div className="mt-4 rounded-lg border-l-4 border-accent/50 bg-accent/5 p-4">
+            <div className="mt-4 rounded-2xl border-l-4 border-accent/50 bg-accent/5 p-4">
               <p className="text-xs font-semibold text-accent flex items-center gap-3">
                 <CiWarning size={20} /> Send your payment proof to WhatsApp and
                 we'll process your order in minutes.

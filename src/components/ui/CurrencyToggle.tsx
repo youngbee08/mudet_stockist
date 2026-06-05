@@ -7,12 +7,12 @@ interface CurrencyToggleProps {
 
 const CurrencyToggle = ({ currency, onChange }: CurrencyToggleProps) => {
   return (
-    <div className="inline-flex items-center rounded-full border border-secondary-dark/70 bg-white p-1">
+    <div className="inline-flex items-center rounded-2xl border border-secondary-dark/70 bg-white p-1">
       <button
         type="button"
         onClick={() => onChange("NGN")}
         className={[
-          "rounded-full px-3 py-1.5 text-xs font-bold transition",
+          "rounded-2xl px-3 py-1.5 text-xs font-bold transition",
           currency === "NGN"
             ? "bg-primary text-white"
             : "text-neutral-soft hover:text-tetiary",
@@ -24,7 +24,7 @@ const CurrencyToggle = ({ currency, onChange }: CurrencyToggleProps) => {
         type="button"
         onClick={() => onChange("USD")}
         className={[
-          "rounded-full px-3 py-1.5 text-xs font-bold transition",
+          "rounded-2xl px-3 py-1.5 text-xs font-bold transition",
           currency === "USD"
             ? "bg-primary text-white"
             : "text-neutral-soft hover:text-tetiary",

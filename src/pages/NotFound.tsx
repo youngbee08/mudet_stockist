@@ -6,8 +6,8 @@ const NotFound: React.FC = () => {
   return (
     <div className="min-h-screen bg-neutral-soft/30 flex items-center justify-center px-4">
       <div className="w-full max-w-xl">
-        <div className="rounded-3xl border border-secondary-dark/70 bg-white shadow-xl shadow-black/10 p-6 sm:p-10 text-center">
-          <div className="mx-auto mb-6 h-1.5 w-16 rounded-full bg-primary" />
+        <div className="rounded-2xl border border-secondary-dark/70 bg-white shadow-xl shadow-black/10 p-6 sm:p-10 text-center">
+          <div className="mx-auto mb-6 h-1.5 w-16 rounded-2xl bg-primary" />
 
           <h1 className="font-display text-6xl sm:text-7xl lg:text-8xl font-extrabold text-primary leading-none">
             404
@@ -26,7 +26,7 @@ const NotFound: React.FC = () => {
           <div className="mt-7 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
             <Link
               to="/"
-              className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3 text-sm font-bold text-white shadow-md shadow-black/10 hover:brightness-110 transition"
+              className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-2xl bg-primary px-6 py-3 text-sm font-bold text-white shadow-md shadow-black/10 hover:brightness-110 transition"
             >
               Go back home
               <HiArrowRight className="text-lg" />

@@ -45,15 +45,15 @@ body {
 }
 
 .btn-primary {
-  @apply cursor-pointer inline-flex min-h-12 items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-extrabold text-white shadow-lg shadow-primary/20 transition hover:-translate-y-0.5 hover:bg-primary-deep focus:outline-none focus:ring-4 focus:ring-primary/20;
+  @apply cursor-pointer inline-flex min-h-12 items-center justify-center rounded-2xl bg-primary px-6 py-3 text-sm font-extrabold text-white shadow-lg shadow-primary/20 transition hover:-translate-y-0.5 hover:bg-primary-deep focus:outline-none focus:ring-4 focus:ring-primary/20;
 }
 
 .btn-secondary {
-  @apply cursor-pointer inline-flex min-h-12 items-center justify-center rounded-full border border-primary/20 bg-white px-6 py-3 text-sm font-extrabold text-primary shadow-sm transition hover:-translate-y-0.5 hover:border-primary/35 hover:bg-secondary focus:outline-none focus:ring-4 focus:ring-primary/15;
+  @apply cursor-pointer inline-flex min-h-12 items-center justify-center rounded-2xl border border-primary/20 bg-white px-6 py-3 text-sm font-extrabold text-primary shadow-sm transition hover:-translate-y-0.5 hover:border-primary/35 hover:bg-secondary focus:outline-none focus:ring-4 focus:ring-primary/15;
 }
 
 .surface-card {
-  @apply rounded-[28px] border border-secondary-dark/70 bg-white shadow-xl shadow-black/5;
+  @apply rounded-2xl border border-secondary-dark/70 bg-white shadow-xl shadow-black/5;
 }
 
 .field-control {
@@ -75,7 +75,7 @@ body {
 
 .styled-scrollbar::-webkit-scrollbar-thumb {
   background-color: color-mix(in oklab, var(--color-primary) 55%, transparent);
-  border-radius: 9999px;
+  border-radius: 1rem;
   transition: background-color 0.2s ease;
 }
 

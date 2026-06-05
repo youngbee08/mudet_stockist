@@ -18,7 +18,7 @@ const Footer = () => {
         >
           <div>
             <div className="flex items-center gap-3">
-              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-white">
+              <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white">
                 <img
                   src={assets.logo1}
                   alt="Mudet"
@@ -110,7 +110,7 @@ const Footer = () => {
               </div>
             </div>
 
-            <div className="rounded-3xl border border-white/10 bg-white/6 p-5 sm:col-span-2">
+            <div className="rounded-2xl border border-white/10 bg-white/6 p-5 sm:col-span-2">
               <p className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-accent-soft">
                 Quick note
               </p>

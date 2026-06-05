@@ -30,7 +30,7 @@ const WhatsAppFloat: React.FC = () => {
           transition={{ duration: 0.25, ease: "easeOut" }}
         >
           <motion.span
-            className="absolute -inset-2 rounded-full blur-xl bg-primary/20 opacity-0"
+            className="absolute -inset-2 rounded-2xl blur-xl bg-primary/20 opacity-0"
             whileHover={{ opacity: 1 }}
             transition={{ duration: 0.2 }}
           />
@@ -39,7 +39,7 @@ const WhatsAppFloat: React.FC = () => {
             className={[
               "relative",
               "w-12 h-12 sm:w-14 sm:h-14",
-              "rounded-full flex items-center justify-center",
+              "rounded-2xl flex items-center justify-center",
               "bg-white",
               "border border-secondary-dark/70",
               "shadow-lg shadow-black/10",
@@ -48,7 +48,7 @@ const WhatsAppFloat: React.FC = () => {
             whileTap={{ scale: 0.95 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
           >
-            <span className="absolute inset-0 rounded-full ring-2 ring-primary/10" />
+            <span className="absolute inset-0 rounded-2xl ring-2 ring-primary/10" />
 
             <FaWhatsapp className="relative text-[#25D366] text-xl sm:text-2xl" />
           </motion.span>
@@ -57,7 +57,7 @@ const WhatsAppFloat: React.FC = () => {
             className={[
               "hidden md:block",
               "absolute right-[calc(100%+12px)] top-1/2 -translate-y-1/2",
-              "px-3 py-2 rounded-full",
+              "px-3 py-2 rounded-2xl",
               "text-xs font-semibold text-neutral-dark",
               "bg-white border border-secondary-dark/70 shadow-md shadow-black/10",
               "whitespace-nowrap",

@@ -56,7 +56,7 @@ const AttachmentModal: React.FC<AttachmentModalProps> = ({
               <a
                 href={image}
                 download
-                className="inline-flex h-9 w-9 items-center justify-center rounded-lg text-black/70 hover:bg-black/5"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-2xl text-black/70 hover:bg-black/5"
                 aria-label="Download attachment"
                 title="Download"
                 onClick={(e) => e.stopPropagation()}
@@ -68,7 +68,7 @@ const AttachmentModal: React.FC<AttachmentModalProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="inline-flex h-9 w-9 items-center justify-center rounded-lg text-black/70 hover:bg-black/5"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-2xl text-black/70 hover:bg-black/5"
               aria-label="Close modal"
               title="Close"
             >
@@ -80,7 +80,7 @@ const AttachmentModal: React.FC<AttachmentModalProps> = ({
         {/* Content */}
         <div className="p-5">
           {image ? (
-            <div className="w-full overflow-hidden rounded-xl border border-black/10 bg-black/5 p-3">
+            <div className="w-full overflow-hidden rounded-2xl border border-black/10 bg-black/5 p-3">
               <img
                 src={image}
                 alt="Attachment"

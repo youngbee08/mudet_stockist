@@ -22,7 +22,7 @@ const FaqCard: React.FC<FaqCardProps> = ({ question, answer }) => {
               {question}
             </h4>
 
-            <span className="shrink-0 w-11 h-11 rounded-full bg-primary/10 text-primary flex items-center justify-center">
+            <span className="shrink-0 w-11 h-11 rounded-2xl bg-primary/10 text-primary flex items-center justify-center">
               {open ? (
                 <HiMinus className="text-xl" />
               ) : (

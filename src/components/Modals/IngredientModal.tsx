@@ -51,7 +51,7 @@ const IngredientModal: React.FC<IngredientModalProps> = ({
           <button
             type="button"
             onClick={onClose}
-            className="inline-flex h-9 w-9 items-center justify-center rounded-lg text-black/70 hover:bg-black/5"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-2xl text-black/70 hover:bg-black/5"
             aria-label="Close modal"
             title="Close"
           >
@@ -60,7 +60,7 @@ const IngredientModal: React.FC<IngredientModalProps> = ({
         </div>
 
         <div className="p-5">
-          <div className="w-full overflow-hidden rounded-xl border border-black/10 bg-black/5 p-3">
+          <div className="w-full overflow-hidden rounded-2xl border border-black/10 bg-black/5 p-3">
             <img
               src={ingredient.image}
               alt={ingredient.title}

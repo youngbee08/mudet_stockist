@@ -173,7 +173,7 @@ const Home: React.FC = () => {
             <motion.article
               key={product.id}
               className={[
-                "group overflow-hidden rounded-[30px] border bg-white shadow-xl shadow-black/5",
+                "group overflow-hidden rounded-2xl border bg-white shadow-xl shadow-black/5",
                 index === 0 ? "border-primary/20" : "border-accent/25",
               ].join(" ")}
               whileHover={{ y: -5 }}
@@ -191,7 +191,7 @@ const Home: React.FC = () => {
                   <h3 className="text-xl font-extrabold text-neutral-dark">
                     {product.name}
                   </h3>
-                  <p className="shrink-0 rounded-full bg-accent-soft px-3 py-1 text-sm font-extrabold text-accent">
+                  <p className="shrink-0 rounded-2xl bg-accent-soft px-3 py-1 text-sm font-extrabold text-accent">
                     {formatPriceByCurrency(product.price, "NGN")}
                   </p>
                 </div>
@@ -295,7 +295,7 @@ const Home: React.FC = () => {
       </motion.section>
 
       <motion.section {...fadeUp} className="">
-        <div className="rounded-[32px] bg-neutral-dark p-7 text-white shadow-2xl shadow-black/10 sm:p-10">
+        <div className="rounded-2xl bg-neutral-dark p-7 text-white shadow-2xl shadow-black/10 sm:p-10">
           <h2 className="mt-3 font-display text-xl font-bold leading-tight sm:text-3xl">
             Your Natural Path to Better Health and Abundant Wealth{" "}
           </h2>
@@ -388,7 +388,7 @@ const Home: React.FC = () => {
 
       <motion.section
         {...fadeUp}
-        className="relative overflow-hidden rounded-[32px] border border-primary/15 bg-secondary p-7 sm:p-10 lg:p-12"
+        className="relative overflow-hidden rounded-2xl border border-primary/15 bg-secondary p-7 sm:p-10 lg:p-12"
       >
         <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
           <div>
