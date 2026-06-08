@@ -18,9 +18,9 @@ const Footer = () => {
         >
           <div>
             <div className="flex items-center gap-3">
-              <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white">
+              <span className="flex">
                 <img
-                  src={assets.logo1}
+                  src={assets.logo2}
                   alt="Mudet"
                   className="h-8 w-8 object-contain"
                 />
