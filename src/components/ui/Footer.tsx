@@ -110,7 +110,7 @@ const Footer = () => {
               </div>
             </div>
 
-            <div className="rounded-2xl border border-white/10 bg-white/6 p-5 sm:col-span-2">
+            {/* <div className="rounded-2xl border border-white/10 bg-white/6 p-5 sm:col-span-2">
               <p className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-accent-soft">
                 Quick note
               </p>
@@ -118,7 +118,7 @@ const Footer = () => {
                 For order confirmation and payment guidance, contact Mercy
                 directly after sending payment.
               </p>
-            </div>
+            </div> */}
           </div>
         </motion.div>
 

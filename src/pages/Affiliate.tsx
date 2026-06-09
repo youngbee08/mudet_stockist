@@ -77,7 +77,7 @@ const Affiliate: React.FC = () => {
     },
     validationSchema: affiliateFormSchema,
     onSubmit: (values) => {
-      const message = `*📌 MUDET AFFILIATE REGISTRATION 📌*
+      const message = `*📌 MUDET STOCKIST REGISTRATION 📌*
 
 *═══════════════════════════════*
 *SPONSOR & PACKAGE INFORMATION*

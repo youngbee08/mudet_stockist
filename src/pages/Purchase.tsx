@@ -5,7 +5,6 @@ import { Minus, Plus, Send } from "lucide-react";
 import { useFormik } from "formik";
 import productDetails from "../lib/productDetails";
 import { purchaseFormSchema } from "../lib/validationSchemas";
-import { CiWarning } from "react-icons/ci";
 
 const makeOrderId = () => `ORD-${Math.floor(10000 + Math.random() * 90000)}`;
 
@@ -315,17 +314,18 @@ Bank: ${BANK_DETAILS.bank}
               </div>
             </div>
 
-            <div className="mt-4 rounded-2xl border-l-4 border-accent/50 bg-accent/5 p-4">
+            {/* <div className="mt-4 rounded-2xl border-l-4 border-accent/50 bg-accent/5 p-4">
               <p className="text-xs font-semibold text-accent flex items-center gap-3">
                 <CiWarning size={20} /> Send your payment proof to WhatsApp and
                 we'll process your order in minutes.
               </p>
-            </div>
+            </div> */}
           </div>
 
           <button
             type="submit"
             disabled={!formik.isValid || formik.isSubmitting}
+            // disabled={formik.isSubmitting}
             className="btn-primary flex-1 gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <Send className="h-5 w-5" />
