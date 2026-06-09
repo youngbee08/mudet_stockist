@@ -78,8 +78,6 @@ Quantity: ${orderData.qty}
 Account Number: ${BANK_DETAILS.accountNumber}
 Account Name: ${BANK_DETAILS.accountName}
 Bank: ${BANK_DETAILS.bank}
-
-Please make payment and send proof for confirmation.
       `.trim();
 
       const encodedMessage = encodeURIComponent(message);

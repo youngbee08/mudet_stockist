@@ -105,16 +105,7 @@ Pick up City: ${values.city}
 Account No: ${values.accountNumber}
 Account Name: ${values.accountName}
 Bank Name: ${values.bankName}
-
-*═══════════════════════════════*
-*PAYMENT DETAILS - REMIT TO*
-*═══════════════════════════════*
-Account No: ${BANK_DETAILS.accountNumber}
-Account Name: ${BANK_DETAILS.accountName}
-Bank: ${BANK_DETAILS.bank}
-
-✓ All details verified and collected
-✓ Please complete payment and send proof`.trim();
+`.trim();
 
       const registration = {
         sponsor: "mercy01",
