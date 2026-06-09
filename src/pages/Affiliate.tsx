@@ -310,12 +310,12 @@ Bank Name: ${values.bankName}
                   </div>
                 </div>
 
-                <div className="mt-4 rounded-2xl border-l-4 border-accent/50 bg-accent/5 p-4">
+                {/* <div className="mt-4 rounded-2xl border-l-4 border-accent/50 bg-accent/5 p-4">
                   <p className="text-xs font-semibold text-accent flex items-center gap-3">
                     <CiWarning size={20} /> Send your payment proof to WhatsApp
                     and we'll verify your payment in minutes.
                   </p>
-                </div>
+                </div> */}
               </div>
 
               <button
