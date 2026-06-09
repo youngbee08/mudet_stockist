@@ -3,7 +3,6 @@ import { toast } from "sonner";
 import { motion } from "framer-motion";
 import { Check, Send } from "lucide-react";
 import { HiOutlineClipboardCopy } from "react-icons/hi";
-import { CiWarning } from "react-icons/ci";
 import { useFormik } from "formik";
 import { affiliateFormSchema } from "../lib/validationSchemas";
 
